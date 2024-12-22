@@ -5,6 +5,7 @@ const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Landing = lazy(() => import("./pages/Landing"));
+const CreateTest = lazy(() => import("./pages/CreateTest"));
 
 import Loading from "./Loading";
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/create-test" element={<CreateTest />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

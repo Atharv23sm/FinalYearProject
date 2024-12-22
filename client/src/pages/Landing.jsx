@@ -1,9 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../partials/Footer";
 import Logo from "../components/Logo";
 import Image1 from "../public/landimg.jpg";
 
+const token = localStorage.getItem("token");
+
 function Landing() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="min-w-full min-h-screen bg-gradient-to-br from-[#50f4] via-[#fff] to-[#fff]">
@@ -12,13 +16,15 @@ function Landing() {
         py-4 md:py-6 px-4 md:px-8"
         >
           <Logo />
-          <Link
-            to="/signup"
+          <div
+            onClick={() => {
+              token ? navigate("/home") : navigate("/login");
+            }}
             className="py-2 px-4 text-white rounded-md cursor-pointer
             bg-[#50f] hover:bg-[#31b] duration-500"
           >
             Get Started
-          </Link>
+          </div>
         </div>
         <div className="w-full flex justify-center px-6 py-16 lg:py-24">
           <div className="animate-[landingTrans1_3s_ease] leading-none text-[14vw] lg:text-[6vw] font-extrabold">

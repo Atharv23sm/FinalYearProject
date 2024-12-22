@@ -1,7 +1,26 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins');
-@import url('https://fonts.googleapis.com/css?family=Gabarito');
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+@import url("https://fonts.googleapis.com/css?family=Gabarito");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.formInput {
+  @apply w-[230px] md:w-[300px] border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent;
+}
+
+.error {
+  @apply text-[#f00] w-[80vw] flex justify-center text-center text-sm pb-4;
+}
+
+.showPassword {
+  @apply absolute right-[12px] bottom-[9px];
+}
+
+.navigateSigning {
+  @apply w-fit px-4 border-2 border-[#50f] hover:bg-[#31b] hover:text-white text-[14px] flex justify-center items-center duration-500 ease-out rounded-md;
+}
+
+.button {
+  @apply rounded-md bg-[#50f] hover:bg-[#31b] duration-500 text-white cursor-pointer;
+}

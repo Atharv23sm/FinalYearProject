@@ -32,7 +32,8 @@ function Login() {
         setError(response.data.message);
       }
       else {
-        sessionStorage.setItem('token', response.data.token);
+        // sessionStorage.setItem('token', response.data.token);
+        localStorage.setItem('token', response.data.token);
         navigate('/home');
       }
     }
@@ -52,7 +53,7 @@ function Login() {
         </div>
         <Link
           to="/Signup"
-          className="w-fit px-4 border-2 border-[#50f] hover:bg-[#31b] hover:text-white text-[14px] flex justify-center items-center duration-500 ease-out rounded-md"
+          className="navigateSigning"
         >
           Sign up
         </Link>
@@ -71,7 +72,7 @@ function Login() {
               name="email"
               required
               value={email}
-              className="w-[230px] md:w-[300px] border-2 border-[#50f] rounded-md outline-none  p-[6px] bg-transparent"
+              className="formInput"
               onChange={(e) => {
                 setEmail(e.target.value.toLowerCase());
                 setError("");
@@ -88,7 +89,7 @@ function Login() {
               maxLength={20}
               minLength={6}
               required
-              className="w-[230px] md:w-[300px] border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
+              className="formInput"
               onChange={(e) => {
                 setPassword(e.target.value.toLowerCase());
                 setError("");
@@ -98,19 +99,19 @@ function Login() {
               <FaEye
                 size={20}
                 onClick={showPassword}
-                className="absolute right-[12px] bottom-[9px]"
+                className="showPassword"
               />
             ) : (
               <FaEyeSlash
                 size={20}
                 onClick={showPassword}
-                className="absolute right-[12px] bottom-[9px]"
+                className="showPassword"
               />
             )}
           </div>
 
           {error && (
-            <div className="text-[#f00] w-[80vw] flex justify-center text-center text-sm md:text-md pb-4">
+            <div className="error md:text-md">
               {error}
             </div>
           )}

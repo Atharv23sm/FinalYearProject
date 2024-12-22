@@ -54,10 +54,7 @@ function Signup() {
             <div className="w-[40%] text-[24px] font-bold flex items-center duration-300 ease-out rounded-md">
               Sign up
             </div>
-            <Link
-              to="/login"
-              className="w-fit px-4 border-2 border-[#50f] hover:bg-[#31b] hover:text-white text-[14px] flex justify-center items-center duration-500 ease-out rounded-md"
-            >
+            <Link to="/login" className="navigateSigning">
               Login
             </Link>
           </div>
@@ -105,7 +102,7 @@ function Signup() {
                   value={name}
                   maxLength={30}
                   required
-                  className="w-[230px] md:w-[300px] border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
+                  className="formInput"
                   onChange={(e) => {
                     setName(e.target.value);
                     setError("");
@@ -120,7 +117,7 @@ function Signup() {
                   name="email"
                   required
                   value={email}
-                  className="w-[230px] md:w-[300px] border-2 border-[#50f] rounded-md outline-none  p-[6px] bg-transparent"
+                  className="formInput"
                   onChange={(e) => {
                     setEmail(e.target.value.toLowerCase());
                     setError("");
@@ -137,7 +134,7 @@ function Signup() {
                   maxLength={20}
                   minLength={6}
                   required
-                  className="w-[230px] md:w-[300px] border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
+                  className="formInput"
                   onChange={(e) => {
                     setPassword(e.target.value.toLowerCase());
                     setError("");
@@ -147,22 +144,18 @@ function Signup() {
                   <FaEye
                     size={20}
                     onClick={showPassword}
-                    className="absolute right-[12px] bottom-[9px]"
+                    className="showPassword"
                   />
                 ) : (
                   <FaEyeSlash
                     size={20}
                     onClick={showPassword}
-                    className="absolute right-[12px] bottom-[9px]"
+                    className="showPassword"
                   />
                 )}
               </div>
 
-              {error && (
-                <div className="text-[#f00] w-[80vw] flex justify-center text-center text-sm md:text-md pb-4">
-                  {error}
-                </div>
-              )}
+              {error && <div className="error md:text-md">{error}</div>}
 
               <SubmitButton value="Signup" />
             </form>
