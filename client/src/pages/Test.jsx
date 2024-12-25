@@ -347,24 +347,35 @@ function Test() {
     },
   ];
 
-  const storedCurrentSelected = localStorage.getItem("currentSelected");
-  const storedSelectedOption = localStorage.getItem("selectedOption");
-  const storedIsAttempted = localStorage.getItem("isAttempted");
-  const storedCurrentIndex = localStorage.getItem("currentIndex");
+  const keys = [
+    "currentSelected",
+    "selectedOption",
+    "isAttempted",
+    "currentIndex",
+  ];
+  const [
+    storedCurrentSelected,
+    storedSelectedOption,
+    storedIsAttempted,
+    storedCurrentIndex,
+  ] = keys.map((key) => localStorage.getItem(key));
 
   const [currentIndex, setCurrentIndex] = useState(
     storedCurrentIndex ? Number(storedCurrentIndex) : 1
   );
+
   const [selectedOption, setSelectedOption] = useState(
     storedSelectedOption
       ? JSON.parse(storedSelectedOption)
       : new Array(questions.length).fill("")
   );
+
   const [currentSelected, setCurrentSelected] = useState(
     storedCurrentSelected
       ? JSON.parse(storedCurrentSelected)
       : new Array(questions.length).fill("")
   );
+
   const [isAttempted, setIsAttempted] = useState(
     storedIsAttempted
       ? JSON.parse(storedIsAttempted)
@@ -372,17 +383,22 @@ function Test() {
   );
 
   const [isProgressShown, setIsProgressShown] = useState(false);
+  const [timerComplete, setTimerComplete] = useState(false);
+  const itemRefs = useRef([]);
+  const currentQuestion = questions[currentIndex - 1];
+
+  const tempClicked = () => {
+    const tempCurrentSelected = [...currentSelected];
+    tempCurrentSelected[currentIndex - 1] = selectedOption[currentIndex - 1];
+    return tempCurrentSelected;
+  };
 
   const handleNext = () => {
     if (currentIndex < questions.length) {
-      const tempCurrentSelected = [...currentSelected];
-      tempCurrentSelected[currentIndex - 1] = selectedOption[currentIndex - 1];
-      setCurrentSelected(tempCurrentSelected);
+      setCurrentSelected(tempClicked);
       setCurrentIndex(currentIndex + 1);
     }
   };
-
-  const itemRefs = useRef([]);
 
   const handleSaveNext = () => {
     if (currentIndex < questions.length) {
@@ -396,23 +412,10 @@ function Test() {
 
   const handlePrevious = () => {
     if (currentIndex > 1) {
-      const tempCurrentSelected = [...currentSelected];
-      tempCurrentSelected[currentIndex - 1] = selectedOption[currentIndex - 1];
-      setCurrentSelected(tempCurrentSelected);
+      setCurrentSelected(tempClicked);
       setCurrentIndex(currentIndex - 1);
     }
   };
-
-  const currentQuestion = questions[currentIndex - 1];
-
-  useEffect(() => {
-    localStorage.setItem("currentSelected", JSON.stringify(currentSelected));
-    localStorage.setItem("selectedOption", JSON.stringify(selectedOption));
-    localStorage.setItem("isAttempted", JSON.stringify(isAttempted));
-    localStorage.setItem("currentIndex", currentIndex);
-  });
-
-  const [timerComplete, setTimerComplete] = useState(false);
 
   const handleTimerComplete = () => {
     setTimerComplete(true);
@@ -421,6 +424,13 @@ function Test() {
   const showProgress = () => {
     setIsProgressShown(!isProgressShown);
   };
+
+  useEffect(() => {
+    localStorage.setItem("currentSelected", JSON.stringify(currentSelected));
+    localStorage.setItem("selectedOption", JSON.stringify(selectedOption));
+    localStorage.setItem("isAttempted", JSON.stringify(isAttempted));
+    localStorage.setItem("currentIndex", currentIndex);
+  });
 
   return (
     <>
@@ -439,6 +449,7 @@ function Test() {
                   key={index}
                   ref={(el) => (itemRefs.current[index] = el)}
                   className={`w-10 h-10 rounded-full flex flex-shrink-0 items-center justify-center cursor-pointer border-2 border-[#50f]
+                  ${currentIndex === item.index && "bg-[#aaa]"}
                   ${
                     isAttempted[item.index - 1] == "attempted" &&
                     "bg-[#2a1] text-white"
@@ -447,7 +458,6 @@ function Test() {
                     isAttempted[item.index - 1] == "skipped" &&
                     "bg-[#f00] text-white"
                   }
-                  ${currentIndex == item.index && "bg-[#aaa]"}
                   `}
                   onClick={() => {
                     setCurrentIndex(item.index);
@@ -472,7 +482,7 @@ function Test() {
               )}
             </div>
           </div>
-          <div className=" md:h-[64vh] flex flex-col md:flex-row gap-4">
+          <div className="md:h-[64vh] flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-[60%] overflow-auto bg-white rounded-md p-2 md:p-4">
               <div className="">
                 {currentQuestion.index}
@@ -497,9 +507,8 @@ function Test() {
                       setCurrentSelected(tempCurrentSelected);
                     }}
                     className={`w-full p-2 md:p-4 cursor-pointer rounded-md border-2 border-[#50f] ${
-                      currentSelected[currentIndex - 1] === item.label
-                        ? "bg-[#50f] text-white"
-                        : ""
+                      currentSelected[currentIndex - 1] === item.label &&
+                      "bg-[#50f] text-white"
                     }`}
                   >
                     {"("}
