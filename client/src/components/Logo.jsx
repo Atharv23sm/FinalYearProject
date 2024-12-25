@@ -5,7 +5,7 @@ function Logo() {
     <Link
       to="/"
       className="w-fit h-fit font-[Gabarito] font-bold text-[#31b]
-      text-lg md:text-xl lg:text-3xl"
+      text-2xl lg:text-3xl"
     >
       PROJECT
     </Link>

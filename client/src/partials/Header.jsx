@@ -8,7 +8,7 @@ const user = deco.user;
 function Header() {
   return (
     <div
-      className="w-full fixed top-0 left-0 bg-[#fffd] backdrop-blur-[4px]
+      className="w-full fixed top-0 left-0 bg-[#fffc] backdrop-blur-[4px]
       py-3 px-8 select none flex justify-between items-center z-30"
     >
       <Logo />

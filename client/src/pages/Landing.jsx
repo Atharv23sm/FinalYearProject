@@ -10,7 +10,7 @@ function Landing() {
 
   return (
     <>
-      <div className="min-w-full min-h-screen bg-gradient-to-br from-[#50f4] via-[#fff] to-[#fff]">
+      <div className="min-w-full min-h-screen bg-gradient-to-br from-[#35f6] via-[#26f4] to-[#fff_50%]">
         <div
           className="bg-white flex justify-between items-center top-0 left-0
         py-4 md:py-6 px-4 md:px-8"

@@ -15,7 +15,7 @@ const tests = [
 function Home() {
   return token ? (
     <>
-      <div className="py-20 px-4 md:px-8">
+      <div className="py-16 px-4 md:px-8">
         <Header />
         <div className="min-w-full min-h-screen flex flex-col md:flex-row bg-[#eee] rounded-md">
           <div className="min-w-fit p-4 md:p-6 border-b-2 md:border-r-2 md:border-b-0 border-[#bbb]">
@@ -30,7 +30,7 @@ function Home() {
               Your Tests
             </div>
             {tests.map((item, index) => (
-              <div className="w-full group bg-white p-4 rounded-md shadow-md hover:shadow-xl duration-500 cursor-pointer">
+              <div className="w-full group bg-white p-4 rounded-md shadow-md hover:shadow-xl duration-500 ease-out cursor-pointer">
                 <div className="flex justify-between items-center">
                   <div
                     key={index}

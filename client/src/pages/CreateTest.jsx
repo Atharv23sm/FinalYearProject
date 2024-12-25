@@ -5,13 +5,17 @@ import Footer from "../partials/Footer";
 import SubmitButton from "../components/SubmitButton";
 
 function CreateTest() {
+  const today = new Date();
+  const formattedDate = today.toISOString().split("T")[0];
+
   const [testName, setTestName] = useState("");
   const [testDuration, setTestDuration] = useState("");
+  const [testDate, setTestDate] = useState(formattedDate);
+  const [testTiming, setTestTiming] = useState("");
   const [error, setError] = useState("");
   const [testFile, setTestFile] = useState("");
 
-
-  const handleSubmit = async()=>{};
+  const handleSubmit = async () => {};
 
   return (
     <>
@@ -39,6 +43,14 @@ function CreateTest() {
             6) After filling out the template, save the file in .xlsx format.
             <br />
             7) Select the filled file, and click Open to upload.
+            <br />
+            8) Note related to Timings,
+            <br />
+            Manual Timing: Admins manually start and stop the test at the
+            specified time. The test will run until the admin chooses to close
+            it, allowing for any duration. <br />
+            Automatic Timing: The test automatically starts at the pre-scheduled
+            date and time, without admin intervention.
           </div>
 
           <form
@@ -59,21 +71,68 @@ function CreateTest() {
                 }}
               />
             </div>
-            <div className=" mb-[10px]  ">
-              Duration (in minutes)
-              <br />
+            <div className="mb-[10px]">
+              Test Date <br />
               <input
-                type="number"
-                name="testDuration"
+                type="date"
+                name="testDate"
                 required
-                value={testDuration}
+                value={testDate}
+                min={formattedDate}
                 className="w-1/2 border-[1px] md:border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
                 onChange={(e) => {
-                  setTestDuration(e.target.value);
+                  setTestDate(e.target.value);
                   setError("");
                 }}
               />
             </div>
+            <div className="mb-[10px]">
+              Timing
+              <br />
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="timing"
+                  value="manual"
+                  className="cursor-pointer"
+                  onChange={(e) => {
+                    setTestTiming(e.target.value);
+                    setError("");
+                  }}
+                />{" "}
+                Manual
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="timing"
+                  value="automatic"
+                  className="cursor-pointer"
+                  onChange={(e) => {
+                    setTestTiming(e.target.value);
+                    setError("");
+                  }}
+                />{" "}
+                Automatic
+              </div>
+            </div>
+            {testTiming == "automatic" && (
+              <div className=" mb-[10px]  ">
+                Duration (in minutes)
+                <br />
+                <input
+                  type="number"
+                  name="testDuration"
+                  required
+                  value={testDuration}
+                  className="w-1/2 border-[1px] md:border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
+                  onChange={(e) => {
+                    setTestDuration(e.target.value);
+                    setError("");
+                  }}
+                />
+              </div>
+            )}
             <div className=" mb-[10px] ">
               Upload the File
               <br />
@@ -84,13 +143,19 @@ function CreateTest() {
                 required
                 className="w-full border-[1px] md:border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
                 onChange={(e) => {
-                  setTestFile(e.target.files[0])
+                  setTestFile(e.target.files[0]);
                   setError("");
                 }}
               />
             </div>
             <div className="flex gap-2 items-center text-sm py-4">
-              <input type="checkbox" name="CheckB" required/>I've read all the instructions carefully.
+              <input
+                type="checkbox"
+                name="CheckB"
+                required
+                className="cursor-pointer"
+              />
+              I've read all the instructions carefully.
             </div>
             <div className="w-full flex justify-center py-4">
               <SubmitButton value="Create" />

@@ -5,6 +5,19 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #50f;
+  border-radius: 1px;
+}
+
 .formInput {
   @apply w-[230px] md:w-[300px] border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent;
 }
