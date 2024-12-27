@@ -37,3 +37,7 @@
 .button {
   @apply rounded-md bg-[#50f] hover:bg-[#31b] duration-500 text-white cursor-pointer;
 }
+
+.landingCard {
+  @apply w-56 h-56 rounded-md bg-[#88f] text-[#31b] leading-none font-extrabold p-2 md:hover:bg-black md:hover:text-white duration-200 ease-in-out;
+}

@@ -13,29 +13,39 @@ export default {
           },
         },
 
+        opacity1: {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+
         landingTrans1: {
-          '0%': {
-            opacity:"0",
+          "0%": {
+            opacity: "0",
           },
-          '50%':{
-            opacity:"1",
-            color: '#50f',
+          "50%": {
+            opacity: "1",
+            color: "#50f",
           },
-          '100%': {
-            opacity:"1",
-            color: '#000',
+          "100%": {
+            opacity: "1",
+            color: "#000",
           },
         },
 
         landingTrans2: {
-          '0%': {
-            transform: 'translateY(600px)',
+          "0%": {
+            transform: "translateY(400px)",
+            backgroundColor: "#000",
           },
-          '100%': {
-            transform: 'translateY(0px)',
+          "100%": {
+            transform: "translateY(0px)",
+            backgroundColor: "#88f",
           },
         },
-
       },
     },
   },

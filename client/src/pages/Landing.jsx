@@ -2,11 +2,27 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../partials/Footer";
 import Logo from "../components/Logo";
 import Image1 from "../public/landimg.jpg";
+import { useEffect, useState } from "react";
 
 const token = localStorage.getItem("token");
 
 function Landing() {
   const navigate = useNavigate();
+
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setCursorPos({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   return (
     <>
@@ -32,8 +48,33 @@ function Landing() {
           </div>
         </div>
         <div
+          className="relative overflow-hidden w-fit bg-gradient-to-tl from-transparent to-[#77f5] backdrop-blur-sm rounded-md p-4 min-h-fit mx-4 mb-24
+        flex place-self-center flex-col md:flex-row justify-between items-center gap-[2vw] md:hover:cursor-none animate-[opacity1_3000ms_ease]"
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        >
+          <div className="landingCard text-[2.5rem] animate-[landingTrans2_1200ms_ease]">
+            Boost <br />
+            Hiring Accuracy
+          </div>
+          <div className="landingCard text-[1.9rem] animate-[landingTrans2_1600ms_ease]">
+            Automated Aptitude Assessment
+          </div>
+          <div className="landingCard text-[2.2rem] animate-[landingTrans2_2000ms_ease]">
+            Objective Candidate Insights
+          </div>
+          {isHovering && (
+            <div
+              className="absolute w-36 h-36 bg-white blur-3xl rounded-full pointer-events-none transform -translate-y-[56vh] -translate-x-[28vw]"
+              style={{
+                left: `${cursorPos.x}px`,
+                top: `${cursorPos.y}px`,
+              }}
+            />
+          )}
+        </div>
+        <div
           className="min-w-fit bg-[#eee] rounded-md p-2
-        animate-[landingTrans2_1500ms_ease]
         mx-[5vw] lg:mx-[10vw] mb-20 min-h-fit
         flex flex-col md:flex-row justify-between items-center gap-[2vw]"
         >
