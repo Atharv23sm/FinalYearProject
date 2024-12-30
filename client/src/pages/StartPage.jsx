@@ -4,7 +4,7 @@ import axiosCandidateInstance from "../axiosCandidateInstance";
 
 export default function StartPage() {
   const [currentTime, setCurrentTime] = useState(null);
-  const [testDetails, setTestDetails] = useState([]);
+  const [testDetails, setTestDetails] = useState({});
   const navigate = useNavigate();
   const testId = useParams().testId;
 
