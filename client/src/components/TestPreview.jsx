@@ -5,7 +5,7 @@ import { LuImagePlus, LuTrash2 } from "react-icons/lu";
 export default function TestPreview(value) {
   const questions = value.value[0];
   const setViewQuestions = value.value[1];
-  const [updatedQuestions, setUpdatedQuestions] = useState(questions);
+  const [updatedQuestions, setUpdatedQuestions] = useState([questions]);
   console.log(updatedQuestions)
   console.log(updatedQuestions.value)
 
@@ -101,7 +101,7 @@ export default function TestPreview(value) {
 
   return (
     <div className="w-full p-2 md:p-4 bg-[#eee] rounded-md space-y-4">
-      {updatedQuestions?.map((item, index) => (
+      {updatedQuestions.map((item, index) => (
         <div
           key={index}
           className="w-full p-2 md:p-4 bg-white rounded-md space-y-4"
