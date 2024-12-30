@@ -37,7 +37,7 @@ router.get("/get-questions/:testId", async (req, res) => {
 router.get("/get-test-details/:id", async (req, res) => {
   const testId = req.params.id;
   try {
-    const testDetails = await Test.find({ _id: testId });
+    const testDetails = await Test.findOne({ _id: testId });
 
     if (!testDetails) {
       return res.status(404).json({ message: "No test found." });

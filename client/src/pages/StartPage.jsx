@@ -14,7 +14,8 @@ export default function StartPage() {
         const response = await axiosCandidateInstance.get(
           `/get-test-details/${testId}`
         );
-        setTestDetails(response.data.testDetails[0]);
+        console.log(response.data.testDetails)
+        setTestDetails(response.data.testDetails);
         // console.log(response);
       } catch (err) {
         // setError(err.response.data.message);

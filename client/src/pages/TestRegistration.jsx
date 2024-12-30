@@ -51,7 +51,7 @@ const TestRegistration = () => {
       //   }
     } catch (e) {
       console.error("Error registering for test :", e);
-      setError(err.response.data.message);
+      setError(e.response.data.message);
 
       if (e.response.status == 400) {
         setError("Candidate is already registered for this test.");
