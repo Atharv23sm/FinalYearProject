@@ -202,14 +202,15 @@ function Test() {
         const [h1, m1] = currentTime.split(":").map(Number);
         const t1 = h1 * 60 + m1;
 
-        const [h2, m2] = testDetails?.startTime.split(":").map(Number);
+        const [h2, m2] = testDetails.startTime
+          ? testDetails.startTime.split(":").map(Number)
+          : [0, 0];
         const t2 = h2 * 60 + m2;
 
         if (t1 - (t2 + testDetails?.duration) == 0) {
           handleSubmit();
         } else {
-          const calculatedDuration =
-            (testDetails?.duration - (t1 - t2)) * 60;
+          const calculatedDuration = (testDetails?.duration - (t1 - t2)) * 60;
           setDuration(calculatedDuration);
         }
       };
