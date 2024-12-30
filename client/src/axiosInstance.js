@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000/',
+    baseURL: 'https://final-year-project-server-ashen.vercel.app/',
 });
 
 // Add an Axios request interceptor to include the token in headers
