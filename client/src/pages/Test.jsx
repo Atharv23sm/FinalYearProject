@@ -197,21 +197,19 @@ function Test() {
   }, [testId, BASE_URL]);
 
   useEffect(() => {
-    if (currentTime && testDetails.length > 0) {
+    if (currentTime && testDetails) {
       const setExactDuration = () => {
         const [h1, m1] = currentTime.split(":").map(Number);
         const t1 = h1 * 60 + m1;
 
-        const [h2, m2] = testDetails[0]?.startTime.split(":").map(Number);
+        const [h2, m2] = testDetails?.startTime.split(":").map(Number);
         const t2 = h2 * 60 + m2;
 
-        // console.log(t1, t2 + testDetails[0]?.duration);
-
-        if (t1 - (t2 + testDetails[0]?.duration) == 0) {
+        if (t1 - (t2 + testDetails?.duration) == 0) {
           handleSubmit();
         } else {
           const calculatedDuration =
-            (testDetails[0]?.duration - (t1 - t2)) * 60;
+            (testDetails?.duration - (t1 - t2)) * 60;
           setDuration(calculatedDuration);
         }
       };
@@ -222,7 +220,7 @@ function Test() {
 
   return (
     currentQuestion &&
-    testDetails[0] && (
+    testDetails && (
       <>
         <div className="w-full p-2 md:p-4 select-none">
           <div className="w-full md:h-[95vh] bg-[#eef] rounded-md p-2 md:p-4 flex flex-col gap-4">

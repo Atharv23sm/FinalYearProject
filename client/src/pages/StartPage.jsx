@@ -14,7 +14,7 @@ export default function StartPage() {
         const response = await axiosCandidateInstance.get(
           `/get-test-details/${testId}`
         );
-        console.log(response.data.testDetails)
+        console.log(response.data.testDetails);
         setTestDetails(response.data.testDetails);
         // console.log(response);
       } catch (err) {
@@ -38,8 +38,10 @@ export default function StartPage() {
       const [h1, m1] = currentTime.split(":").map(Number);
       const t1 = h1 * 60 + m1;
 
-      console.log(testDetails)
-      const [h2, m2] = testDetails.startTime.split(":").map(Number);
+      console.log(testDetails);
+      const [h2, m2] = testDetails
+        ? testDetails.startTime.split(":").map(Number)
+        : [0, 0];
       const t2 = h2 * 60 + m2;
       // console.log(t1,t2)
       return t1 >= t2;

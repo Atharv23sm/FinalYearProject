@@ -25,7 +25,7 @@ function TestDetails() {
     const getTestDetails = async () => {
       try {
         const response = await axiosInstance.get(`/get-test-details/${testId}`);
-        setTestDetails(response.data.testDetails[0]);
+        setTestDetails(response.data.testDetails);
         setRegisetredCount(response.data.registeredCount);
         setSubmittedCount(response.data.submittedCount);
       } catch (error) {
