@@ -32,15 +32,10 @@ function Signup() {
         email,
         password,
       });
-      if (response.data.status === "error") {
-        setIsSigningUp(false);
-        setError(response.data.message);
-      } else {
-        navigate("/login");
-      }
-    } catch (error) {
+      navigate("/login");
+    } catch (err) {
       setIsSigningUp(false);
-      setError("An error occurred. Please try again later.");
+      setError(err.response.data.message);
     }
   };
 
@@ -49,22 +44,18 @@ function Signup() {
       {isSigningUp ? (
         <Loading />
       ) : (
-        <div className="w-full min-h-screen flex flex-col gap-12 justify-center items-center select-none">
-          <div className="w-[230px] md:w-[300px] flex justify-between">
-            <div className="w-[40%] text-[24px] font-bold flex items-center duration-300 ease-out rounded-md">
-              Sign up
+        <div className="w-full min-h-screen p-4 md:p-0 flex justify-center items-center">
+          <div className="w-full sm:w-1/2 md:w-[40%] lg:w-[30%] flex flex-col items-center gap-4 p-4 bg-[#eef] rounded-md">
+            <div className="w-full flex justify-between bg-white p-2 md:p-4 rounded-md">
+              <div className="text-2xl font-bold">Sign up</div>
+              <Link to="/login" className="navigateSigning">
+                Login
+              </Link>
             </div>
-            <Link to="/login" className="navigateSigning">
-              Login
-            </Link>
-          </div>
 
-          <div className="w-max h-[85%] flex justify-center items-center">
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col justify-center items-center "
-            >
-              {/*
+            <div className="w-full bg-white rounded-md p-2 md:p-4">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+                {/*
               <div className="flex gap-10 p-4">
                 <div>
                   <input
@@ -94,71 +85,72 @@ function Signup() {
                 </div>
               </div>*/}
 
-              <div className=" mb-[10px]">
-                Name <br />
-                <input
-                  type="text"
-                  name="name"
-                  value={name}
-                  maxLength={30}
-                  required
-                  className="formInput"
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    setError("");
-                  }}
-                />
-              </div>
-
-              <div className=" mb-[10px]  ">
-                Email <br />
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={email}
-                  className="formInput"
-                  onChange={(e) => {
-                    setEmail(e.target.value.toLowerCase());
-                    setError("");
-                  }}
-                />
-              </div>
-
-              <div className="mb-[20px] relative">
-                Password <br />
-                <input
-                  type={passtype}
-                  name="password"
-                  value={password}
-                  maxLength={20}
-                  minLength={6}
-                  required
-                  className="formInput"
-                  onChange={(e) => {
-                    setPassword(e.target.value.toLowerCase());
-                    setError("");
-                  }}
-                />
-                {passtype == "password" ? (
-                  <FaEye
-                    size={20}
-                    onClick={showPassword}
-                    className="showPassword"
+                <div>
+                  Name <br />
+                  <input
+                    type="text"
+                    name="name"
+                    value={name}
+                    maxLength={30}
+                    required
+                    className="formInput"
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      setError("");
+                    }}
                   />
-                ) : (
-                  <FaEyeSlash
-                    size={20}
-                    onClick={showPassword}
-                    className="showPassword"
+                </div>
+
+                <div>
+                  Email <br />
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={email}
+                    className="formInput"
+                    onChange={(e) => {
+                      setEmail(e.target.value.toLowerCase());
+                      setError("");
+                    }}
                   />
-                )}
-              </div>
+                </div>
 
-              {error && <div className="error md:text-md">{error}</div>}
+                <div className="relative mb-4">
+                  Password <br />
+                  <input
+                    type={passtype}
+                    name="password"
+                    value={password}
+                    maxLength={20}
+                    minLength={6}
+                    required
+                    className="formInput"
+                    onChange={(e) => {
+                      setPassword(e.target.value.toLowerCase());
+                      setError("");
+                    }}
+                  />
+                  {passtype == "password" ? (
+                    <FaEye
+                      size={20}
+                      onClick={showPassword}
+                      className="showPassword"
+                    />
+                  ) : (
+                    <FaEyeSlash
+                      size={20}
+                      onClick={showPassword}
+                      className="showPassword"
+                    />
+                  )}
+                </div>
 
-              <SubmitButton value="Signup" />
-            </form>
+                {error && <div className="error md:text-md">{error}</div>}
+
+                <SubmitButton value="Signup" />
+              </form>
+            </div>
           </div>
         </div>
       )}

@@ -1,50 +1,23 @@
 import { useEffect, useState, useRef } from "react";
-import { FaAngleLeft, FaAngleRight, FaBars } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight, FaBars, FaClock } from "react-icons/fa";
 import Timer from "../components/Timer";
-import { useAuth } from "../context/UserContext";
-import { useParams } from "react-router-dom";
-import axiosInstance from "../axiosInstance";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "../url";
+import axiosCandidateInstance from "../axiosCandidateInstance";
 
 function Test() {
   const [questions, setQuestions] = useState([]);
   const [testDetails, setTestDetails] = useState([]);
   const [error, setError] = useState("");
-  const { adminId, isLogged } = useAuth();
+  const [duration, setDuration] = useState(null);
+  const [isProgressShown, setIsProgressShown] = useState(false);
+  const [timerComplete, setTimerComplete] = useState(false);
+  const [tabSwitchCount, setTabSwitchCount] = useState(0);
+  const [wasCheating, setWasCheating] = useState(false);
+  const [currentTime, setCurrentTime] = useState(null);
   const { testId } = useParams();
-
-  useEffect(() => {
-    const getQuestions = async () => {
-      try {
-        const response = await axiosInstance.get(
-          `/get-questions/676ee1664bd7fec6aa8afddf` //sample
-        );
-        setQuestions(response.data.questions);
-      } catch (error) {
-        console.log(error);
-        setError("No Questions found!");
-      }
-    };
-    if (isLogged) {
-      getQuestions();
-    }
-  }, []);
-
-  useEffect(() => {
-    const getTestDuration = async () => {
-      try {
-        const response = await axiosInstance.get(
-          `/get-test-details/676ee1664bd7fec6aa8afddf`
-        );
-        setTestDetails(response.data.testDetails);
-      } catch (error) {
-        console.log(error);
-        setError("No Questions found!");
-      }
-    };
-    if (isLogged) {
-      getTestDuration();
-    }
-  }, []);
+  const navigate = useNavigate();
 
   const keys = [
     "currentSelected",
@@ -81,8 +54,6 @@ function Test() {
       : new Array(questions.length).fill(null)
   );
 
-  const [isProgressShown, setIsProgressShown] = useState(false);
-  const [timerComplete, setTimerComplete] = useState(false);
   const itemRefs = useRef([]);
   const currentQuestion = questions[currentIndex - 1];
 
@@ -124,19 +95,137 @@ function Test() {
     setIsProgressShown(!isProgressShown);
   };
 
+  const handleSubmit = async () => {
+    // console.log(selectedOption);
+    try {
+      const response = await axiosCandidateInstance.post(`/submit-test`, {
+        testId: testId,
+        selectedOption: selectedOption,
+        wasCheating: wasCheating,
+      });
+      // console.log(response);
+      alert("Test submitted successfully!");
+      const storedKeys = [
+        "currentSelected",
+        "selectedOption",
+        "isAttempted",
+        "currentIndex",
+        "timeLeft",
+      ];
+      storedKeys.map((key) => localStorage.removeItem(key));
+      navigate("/end-page");
+    } catch (error) {
+      console.error("Error submitting test:", error);
+    }
+  };
+
   useEffect(() => {
+    const checkCandidateAttempt = async () => {
+      const response = await axiosCandidateInstance.post(
+        `/check-candidate-attempt`,
+        {
+          testId: testId,
+        }
+      );
+      if (!response.data.isFirstAttempt) {
+        navigate("/end-page");
+      }
+    };
+    checkCandidateAttempt();
     localStorage.setItem("currentSelected", JSON.stringify(currentSelected));
     localStorage.setItem("selectedOption", JSON.stringify(selectedOption));
     localStorage.setItem("isAttempted", JSON.stringify(isAttempted));
     localStorage.setItem("currentIndex", currentIndex);
   });
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        setTabSwitchCount((prevCount) => prevCount + 1);
+        alert("Switching tabs more than 5 times is considered cheating!");
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    tabSwitchCount > 5 && setWasCheating(true);
+  }, [tabSwitchCount]);
+
+  useEffect(() => {
+    const getQuestions = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/get-questions/${testId}`);
+        setQuestions(response.data.questions);
+      } catch (err) {
+        console.log(err);
+        setError("No Questions found!");
+      }
+    };
+    // if (adminId) {
+    getQuestions();
+    // }
+  }, []);
+
+  useEffect(() => {
+    const getTestDuration = async () => {
+      try {
+        const response = await axios.get(
+          `${BASE_URL}/get-test-details/${testId}`
+        );
+        setTestDetails(response.data.testDetails);
+      } catch (err) {
+        console.log(err);
+        setError("No Questions found!");
+      }
+    };
+
+    getTestDuration();
+
+    const intervalId = setInterval(() => {
+      const currentIST = new Date().toLocaleString("en-IN", {
+        timeZone: "Asia/Kolkata",
+        hour12: false,
+      });
+      setCurrentTime(currentIST.slice(12, 17));
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [testId, BASE_URL]);
+
+  useEffect(() => {
+    if (currentTime && testDetails.length > 0) {
+      const setExactDuration = () => {
+        const [h1, m1] = currentTime.split(":").map(Number);
+        const t1 = h1 * 60 + m1;
+
+        const [h2, m2] = testDetails[0]?.startTime.split(":").map(Number);
+        const t2 = h2 * 60 + m2;
+
+        // console.log(t1, t2 + testDetails[0]?.duration);
+
+        if (t1 - (t2 + testDetails[0]?.duration) == 0) {
+          handleSubmit();
+        } else {
+          const calculatedDuration =
+            (testDetails[0]?.duration - (t1 - t2)) * 60;
+          setDuration(calculatedDuration);
+        }
+      };
+
+      setExactDuration();
+    }
+  }, [currentTime, testDetails]);
+
   return (
     currentQuestion &&
     testDetails[0] && (
       <>
         <div className="w-full p-2 md:p-4 select-none">
-          <div className="w-full md:h-[95vh] bg-[#ddd] rounded-md p-2 md:p-4 flex flex-col gap-4">
+          <div className="w-full md:h-[95vh] bg-[#eef] rounded-md p-2 md:p-4 flex flex-col gap-4">
             <div className="flex justify-between items-center gap-4">
               <div
                 className={`w-full flex ${
@@ -149,15 +238,14 @@ function Test() {
                   <div
                     key={index}
                     ref={(el) => (itemRefs.current[index] = el)}
-                    className={`w-10 h-10 rounded-full flex flex-shrink-0 items-center justify-center cursor-pointer border-2 border-[#50f]
-                  ${currentIndex === item.index && "bg-[#aaa]"}
+                    className={`w-10 h-10 rounded-md flex flex-shrink-0 items-center justify-center cursor-pointer border-2 border-[#50f]
                   ${
-                    isAttempted[item.index - 1] == "attempted" &&
-                    "bg-[#2a1] text-white"
-                  }  
-                  ${
-                    isAttempted[item.index - 1] == "skipped" &&
-                    "bg-[#f00] text-white"
+                    currentIndex === item.index
+                      ? "bg-[#eef]"
+                      : isAttempted[item.index - 1] == "attempted"
+                      ? "bg-[#2a1] text-white"
+                      : isAttempted[item.index - 1] == "skipped" &&
+                        "bg-[#f00] text-white"
                   }
                   `}
                     onClick={() => {
@@ -168,6 +256,7 @@ function Test() {
                   </div>
                 ))}
               </div>
+
               <div className="w-fit h-fit hidden p-4 md:flex items-center justify-center bg-white rounded-md">
                 <FaBars
                   size={20}
@@ -177,22 +266,36 @@ function Test() {
               </div>
               <div className="w-fit h-fit p-2 md:p-4 bg-white rounded-md flex justify-center items-center">
                 {!timerComplete ? (
-                  <Timer
-                    duration={(testDetails[0]?.duration) * 60}
-                    onComplete={handleTimerComplete}
-                  />
+                  duration !== null ? (
+                    <Timer
+                      duration={duration}
+                      onComplete={handleTimerComplete}
+                    />
+                  ) : (
+                    <FaClock size={20} className="animate-pulse" />
+                  )
                 ) : (
                   <h3>Timer Completed!</h3>
                 )}
               </div>
             </div>
+
+            {error && <div className="error m-0 p-0 md:text-md">{error}</div>}
+
             <div className="md:h-[64vh] flex flex-col md:flex-row gap-4">
-              <div className="w-full md:w-[60%] overflow-auto bg-white rounded-md p-2 md:p-4">
+              <div className="w-full md:w-[60%] overflow-auto bg-white rounded-md p-2 md:p-4 space-y-4">
                 <div className="">
                   {currentQuestion.index}
                   {") "}
                   {currentQuestion.question}
                 </div>
+                {currentQuestion.image && (
+                  <img
+                    src={currentQuestion.image}
+                    alt={`Question ${currentIndex.index}`}
+                    className="w-full h-auto rounded-md border border-[#50f]"
+                  />
+                )}
               </div>
               <div className="w-full md:w-[40%] overflow-auto p-2 md:p-4 bg-white rounded-md">
                 <div className="flex flex-col items-center gap-4">
@@ -235,25 +338,35 @@ function Test() {
                 <div className="button px-2 md:px-4 py-2" onClick={handleNext}>
                   <FaAngleRight size={20} />
                 </div>
+                <div
+                  className="button px-4 py-2"
+                  onClick={() => {
+                    if (currentSelected[currentIndex - 1] != null) {
+                      isAttempted[currentIndex - 1] = "attempted";
+                      setIsAttempted(isAttempted);
+                    } else {
+                      isAttempted[currentIndex - 1] = "skipped";
+                    }
+                    const tempSelectedOption = [...selectedOption];
+                    tempSelectedOption[currentIndex - 1] =
+                      currentSelected[currentIndex - 1];
+                    setSelectedOption(tempSelectedOption);
+                    setCurrentSelected(tempSelectedOption);
+                    currentIndex != questions.length && handleSaveNext();
+                  }}
+                >
+                  {currentIndex == questions.length ? "Save" : "Save & Next"}
+                </div>
               </div>
+
               <div
-                className="button px-4 py-2"
                 onClick={() => {
-                  if (currentSelected[currentIndex - 1] != null) {
-                    isAttempted[currentIndex - 1] = "attempted";
-                    setIsAttempted(isAttempted);
-                  } else {
-                    isAttempted[currentIndex - 1] = "skipped";
-                  }
-                  const tempSelectedOption = [...selectedOption];
-                  tempSelectedOption[currentIndex - 1] =
-                    currentSelected[currentIndex - 1];
-                  setSelectedOption(tempSelectedOption);
-                  setCurrentSelected(tempSelectedOption);
-                  currentIndex != questions.length && handleSaveNext();
+                  confirm("Are you sure? You are submitting the test.") &&
+                    handleSubmit();
                 }}
+                className="button p-4"
               >
-                {currentIndex == questions.length ? "Submit" : "Save & Next"}
+                Submit
               </div>
             </div>
           </div>

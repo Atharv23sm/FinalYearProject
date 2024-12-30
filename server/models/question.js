@@ -32,6 +32,11 @@ const questionSchema = new mongoose.Schema({
     },
   },
 
+  image: {
+    type: String,
+    required: false,
+  },
+
   adminId: {
     type: mongoose.Schema.Types.ObjectId,
     required: false,

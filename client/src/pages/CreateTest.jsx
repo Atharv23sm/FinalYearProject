@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 import { BASE_URL } from "../url";
 import axiosInstance from "../axiosInstance";
@@ -20,10 +20,10 @@ export default function CreateTest() {
   const [testDate, setTestDate] = useState(formattedDate);
   const [testStartTime, setStartTime] = useState("");
   const [questions, setQuestions] = useState([]);
-  const [currentTime, setCurrentTime] = useState({ hours: "", minutes: "" });
+  // const [currentTime, setCurrentTime] = useState({ hours: "", minutes: "" });
   const [testDuration, setTestDuration] = useState("");
   const [error, setError] = useState("");
-  const { adminId, isLogged } = useAuth();
+  const { adminId } = useAuth();
 
   const downloadTemplate = () => {
     window.location.href = `${BASE_URL}/download-template`;
@@ -48,8 +48,8 @@ export default function CreateTest() {
         );
         response.data && setQuestions(response.data.questions);
         setIsUploaded(true);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        setError(err.response.data.message);
       }
     }
   };
@@ -70,31 +70,31 @@ export default function CreateTest() {
       });
 
       if (response.status == 200) {
+        alert("The test has been created successfully.");
         navigate("/home");
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (err) {
+      setError(err.response.data.message);
     }
   };
 
-  useEffect(() => {
-    let hours = today.getHours();
-    let minutes = today.getMinutes();
-    if (hours < 10) hours = "0" + hours;
-    if (minutes < 10) minutes = "0" + minutes;
-    setCurrentTime({ hours: hours, minutes: minutes });
-  }, [testStartTime]);
+  // useEffect(() => {
+  //   let hours = today.getHours();
+  //   let minutes = today.getMinutes();
+  //   if (hours < 10) hours = "0" + hours;
+  //   if (minutes < 10) minutes = "0" + minutes;
+  //   setCurrentTime({ hours: hours, minutes: minutes });
+  // }, [testStartTime]);
 
   useEffect(() => {
     previewTest();
   }, [testFile, setTestFile]);
 
-  return (
-    
+  return adminId ? (
     <>
       <Header />
       <div className="min-w-full min-h-screen py-16 px-2 sm:px-4 md:px-6 flex flex-col justify-center">
-        <div className="w-full p-2 md:p-4 bg-[#eee] flex flex-col md:flex-row md:justify-between gap-4 rounded-md">
+        <div className="w-full p-2 md:p-4 bg-[#eef] flex flex-col md:flex-row md:justify-between gap-4 rounded-md">
           <div className="w-full md:p-4 text-sm md:text-base">
             Instructions :
             <br />
@@ -124,14 +124,14 @@ export default function CreateTest() {
             onSubmit={handleSubmit}
             className="w-full bg-white rounded-md p-3"
           >
-            <div className=" mb-[10px]  ">
+            <div className="mb-[10px]">
               Test Name <br />
               <input
                 type="text"
                 name="testName"
                 required
                 value={testName}
-                className="w-full border-[1px] md:border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
+                className="formInput"
                 onChange={(e) => {
                   setTestName(e.target.value);
                   setError("");
@@ -146,23 +146,23 @@ export default function CreateTest() {
                 required
                 value={testDate}
                 min={formattedDate}
-                className="w-1/2 border-[1px] md:border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
+                className="formInput"
                 onChange={(e) => {
                   setTestDate(e.target.value);
                   setError("");
                 }}
               />
             </div>
-            <div className="mb-[10px]  ">
+            <div className="mb-[10px]">
               Start Time <br />{" "}
               <input
                 type="time"
                 name="testStartTime"
                 required
                 value={testStartTime}
-                className="w-1/2 border-[1px] md:border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
+                className="formInput"
                 onChange={(e) => {
-                  const [h, m] = e.target.value.split(":");
+                  // const [h, m] = e.target.value.split(":");
                   // if (currentTime.hours <= h && currentTime.minutes + 5 < m) {
                   //   setStartTime(e.target.value);
                   // } else {
@@ -175,7 +175,7 @@ export default function CreateTest() {
                 }}
               />
             </div>
-            <div className=" mb-[10px]  ">
+            <div className="mb-[10px] ">
               Duration (in minutes)
               <br />
               <input
@@ -183,25 +183,26 @@ export default function CreateTest() {
                 name="testDuration"
                 required
                 value={testDuration}
-                className="w-1/2 border-[1px] md:border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
+                className="formInput"
                 onChange={(e) => {
                   setTestDuration(e.target.value);
                   setError("");
                 }}
               />
             </div>
-            <div className=" mb-[10px] ">
+            <div className="mb-[10px]">
               Upload the File
               <br />
               <input
                 type="file"
                 name="file"
-                accept=".xls, .xlsx"
+                accept=".xls,.xlsx"
                 required
-                className="w-full border-[1px] md:border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent"
+                className="formInput"
                 onChange={(e) => {
+                  setIsUploaded(false);
                   setTestFile(e.target.files[0]);
-                  setQuestions([])
+                  setQuestions([]);
                   setError("");
                 }}
               />
@@ -211,6 +212,8 @@ export default function CreateTest() {
               I've read all the instructions carefully.
             </div>
 
+            {error && <div className="error md:text-md">{error}</div>}
+
             <div className="w-full flex flex-wrap justify-between py-4 gap-4">
               {isUploaded && (
                 <div
@@ -219,18 +222,18 @@ export default function CreateTest() {
                     setIsPreviewClicked(!isPreviewClicked);
                   }}
                 >
-                  Preview Test
+                  {isPreviewClicked ? "Hide preview" : "Preview Test"}
                 </div>
               )}
               <SubmitButton value="Create" />
             </div>
           </form>
         </div>
-        {isPreviewClicked && (
-          <TestPreview value={questions}/>
-        )}
+        {isPreviewClicked && <TestPreview value={questions} />}
       </div>
       <Footer />
     </>
+  ) : (
+    <Navigate to={"/login"} />
   );
 }

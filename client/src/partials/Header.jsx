@@ -34,13 +34,16 @@ function Header() {
         {user.name}
       </div>
       {showBlock && (
-        <div
-          onClick={() => {
-            logout();
-          }}
-          className="absolute right-4 top-16 w-fit p-4 rounded-b-md bg-[#50f] text-white flex gap-2 items-center cursor-pointer"
-        >
-          Logout <FaSignOutAlt size={20} />
+        <div className="flex flex-col gap-4 absolute right-4 top-[60px] w-fit p-4 rounded-b-md bg-[#50f] text-white ">
+          <div className="">{user.email}</div>
+          <div
+            onClick={() => {
+              logout();
+            }}
+            className="flex gap-2 items-center cursor-pointer"
+          >
+            Logout <FaSignOutAlt size={20} />
+          </div>
         </div>
       )}
     </div>

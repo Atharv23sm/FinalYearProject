@@ -19,11 +19,11 @@
 }
 
 .formInput {
-  @apply w-[230px] md:w-[300px] border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent;
+  @apply w-full border-2 border-[#50f] rounded-md outline-none p-[6px] bg-transparent;
 }
 
 .error {
-  @apply text-[#f00] w-[80vw] flex justify-center text-center text-sm pb-4;
+  @apply text-[#f00] w-full flex justify-center text-center text-sm pb-4;
 }
 
 .showPassword {
@@ -31,7 +31,7 @@
 }
 
 .navigateSigning {
-  @apply w-fit px-4 border-2 border-[#50f] hover:bg-[#31b] hover:text-white text-[14px] flex justify-center items-center duration-500 ease-out rounded-md;
+  @apply w-fit px-4 py-1 border-2 border-[#50f] hover:bg-[#31b] hover:text-white text-[14px] text-center duration-500 ease-out rounded-md;
 }
 
 .button {
@@ -39,5 +39,9 @@
 }
 
 .landingCard {
-  @apply w-56 h-56 rounded-md bg-[#88f] text-[#31b] leading-none font-extrabold p-2 md:hover:bg-black md:hover:text-white duration-200 ease-in-out;
+  @apply w-56 h-56 rounded-md bg-[#88f] text-[#31b] leading-none font-extrabold p-2;
+}
+
+.td {
+  @apply border border-[#aac] p-2 text-center bg-white;
 }

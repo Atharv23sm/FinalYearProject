@@ -65,7 +65,7 @@ function Landing() {
           </div>
           {isHovering && (
             <div
-              className="absolute w-36 h-36 bg-white blur-3xl rounded-full pointer-events-none transform -translate-y-[56vh] -translate-x-[28vw]"
+              className="absolute w-52 h-52 backdrop-brightness-150 rounded-full pointer-events-none transform -translate-y-[68vh] -translate-x-[31vw]"
               style={{
                 left: `${cursorPos.x}px`,
                 top: `${cursorPos.y}px`,
@@ -74,7 +74,7 @@ function Landing() {
           )}
         </div>
         <div
-          className="min-w-fit bg-[#eee] rounded-md p-2
+          className="min-w-fit bg-[#eef] rounded-md p-2
         mx-[5vw] lg:mx-[10vw] mb-20 min-h-fit
         flex flex-col md:flex-row justify-between items-center gap-[2vw]"
         >

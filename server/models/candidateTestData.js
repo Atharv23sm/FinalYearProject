@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userTestDataSchema = new mongoose.Schema({
+const candidateTestDataSchema = new mongoose.Schema({
   candidateId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Candidate",
@@ -20,7 +20,7 @@ const userTestDataSchema = new mongoose.Schema({
       },
       selectedOption: {
         type: String,
-        required: true,
+        // required: true,
       },
       isCorrect: {
         type: Boolean,
@@ -28,6 +28,11 @@ const userTestDataSchema = new mongoose.Schema({
       },
     },
   ],
+  wasCheating: {
+    type: Boolean,
+    // required: true,
+    default: false,
+  },
   score: {
     type: Number,
     required: true,
@@ -43,4 +48,4 @@ const userTestDataSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("userTestData", userTestDataSchema);
+module.exports = mongoose.model("candidateTestData", candidateTestDataSchema);

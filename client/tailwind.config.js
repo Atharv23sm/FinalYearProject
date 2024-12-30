@@ -6,9 +6,9 @@ export default {
       keyframes: {
         loading: {
           "0%,100%": {
-            opacity: "0.2",
+            opacity: "0",
           },
-          "50%": {
+          "40%,60%": {
             opacity: "1",
           },
         },
