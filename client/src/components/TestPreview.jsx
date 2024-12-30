@@ -2,12 +2,10 @@ import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { LuImagePlus, LuTrash2 } from "react-icons/lu";
 
-export default function TestPreview(value) {
-  const questions = value.value[0];
-  const setViewQuestions = value.value[1];
-  const [updatedQuestions, setUpdatedQuestions] = useState([questions]);
-  console.log(updatedQuestions)
-  console.log(updatedQuestions.value)
+export default function TestPreview({value}) {
+  const questions = value.questions || value;
+  const setViewQuestions = value.setViewQuestions;
+  const [updatedQuestions, setUpdatedQuestions] = useState(questions);
 
   const handleButtonClick = (questionId) => {
     const input = document.createElement("input");
@@ -98,6 +96,8 @@ export default function TestPreview(value) {
       alert("Something went wrong while deleting the image, try again later.");
     }
   };
+
+  console.log(updatedQuestions)
 
   return (
     <div className="w-full p-2 md:p-4 bg-[#eee] rounded-md space-y-4">

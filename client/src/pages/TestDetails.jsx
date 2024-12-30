@@ -150,7 +150,7 @@ function TestDetails() {
             </div>
           </div>
         </div>
-        {viewQuestions && <TestPreview value={[questions, setViewQuestions]} />}
+        {viewQuestions && <TestPreview value={{questions, setViewQuestions}} />}
       </div>
       <Footer />
     </>
