@@ -6,6 +6,8 @@ export default function TestPreview(value) {
   const questions = value.value[0];
   const setViewQuestions = value.value[1];
   const [updatedQuestions, setUpdatedQuestions] = useState(questions);
+  console.log(updatedQuestions)
+  console.log(updatedQuestions.value)
 
   const handleButtonClick = (questionId) => {
     const input = document.createElement("input");
@@ -99,7 +101,7 @@ export default function TestPreview(value) {
 
   return (
     <div className="w-full p-2 md:p-4 bg-[#eee] rounded-md space-y-4">
-      {updatedQuestions.map((item, index) => (
+      {updatedQuestions?.map((item, index) => (
         <div
           key={index}
           className="w-full p-2 md:p-4 bg-white rounded-md space-y-4"

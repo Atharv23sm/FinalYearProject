@@ -37,6 +37,7 @@ export default function StartPage() {
       const [h1, m1] = currentTime.split(":").map(Number);
       const t1 = h1 * 60 + m1;
 
+      console.log(testDetails)
       const [h2, m2] = testDetails.startTime.split(":").map(Number);
       const t2 = h2 * 60 + m2;
       // console.log(t1,t2)
