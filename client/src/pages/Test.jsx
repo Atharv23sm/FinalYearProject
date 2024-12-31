@@ -16,6 +16,7 @@ function Test() {
   const [tabSwitchCount, setTabSwitchCount] = useState(0);
   const [wasCheating, setWasCheating] = useState(false);
   const [currentTime, setCurrentTime] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { testId } = useParams();
   const navigate = useNavigate();
 
@@ -98,6 +99,7 @@ function Test() {
   const handleSubmit = async () => {
     // console.log(selectedOption);
     try {
+      setIsSubmitting(true)
       const response = await axiosCandidateInstance.post(`/submit-test`, {
         testId: testId,
         selectedOption: selectedOption,
@@ -113,9 +115,12 @@ function Test() {
         "timeLeft",
       ];
       storedKeys.map((key) => localStorage.removeItem(key));
+      setIsSubmitting(false)
       navigate("/end-page");
-    } catch (error) {
-      console.error("Error submitting test:", error);
+    } catch (err) {
+      setIsSubmitting(false)
+      console.error("Error submitting test:", err);
+      setError(err.response.date.message)
     }
   };
 

@@ -54,7 +54,7 @@ function Home() {
               <div className="place-content-center h-full text-[16px] md:text-2xl m-2 md:m-6">
                 Your Tests
               </div>
-              <div className="place-content-center px-2 md:px-4 w-fit h-full bg-white">{`Total Tests : ${total}`}</div>
+              <div className="place-content-center p-2 md:p-4 w-fit h-full bg-white">{`Total Tests : ${total}`}</div>
             </div>
             {!isLoading ? (
               tests.map((item, index) => (

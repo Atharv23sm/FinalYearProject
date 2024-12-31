@@ -1,4 +1,4 @@
-function Loading() {
+export default function Loading() {
   return (
     <div className="w-full min-h-screen flex gap-2 justify-center items-center">
       {[1, 2, 3].map((item) => {
@@ -12,5 +12,3 @@ function Loading() {
     </div>
   );
 }
-
-export default Loading;

@@ -217,7 +217,7 @@ router.post("/submit-test", candidateAuthenticate, async (req, res) => {
   // console.log(selectedOption)
   try {
     if (!testId || !candidateId || !selectedOption) {
-      return res.status(200).json({ message: "Missing required fields" });
+      return res.status(404).json({ message: "Missing required fields" });
     }
 
     const test = await Test.findById(testId);

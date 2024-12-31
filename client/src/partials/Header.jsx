@@ -34,7 +34,7 @@ function Header() {
         {user.name}
       </div>
       {showBlock && (
-        <div className="flex flex-col gap-4 absolute right-4 top-[60px] w-fit p-4 rounded-b-md bg-[#50f] text-white ">
+        <div className="w-fit flex flex-col gap-4 absolute right-4 top-[56px] p-4 rounded-b-md bg-[#31b] text-white">
           <div className="">{user.email}</div>
           <div
             onClick={() => {

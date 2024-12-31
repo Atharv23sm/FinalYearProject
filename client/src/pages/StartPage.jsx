@@ -16,7 +16,6 @@ export default function StartPage() {
         );
         // console.log(response.data.testDetails);
         setTestDetails(response.data.testDetails);
-        // console.log(response);
       } catch (err) {
         // setError(err.response.data.message);
         console.log(err);
@@ -38,7 +37,6 @@ export default function StartPage() {
       const [h1, m1] = currentTime.split(":").map(Number);
       const t1 = h1 * 60 + m1;
 
-      console.log(testDetails);
       const [h2, m2] = testDetails.startTime
         ? testDetails.startTime.split(":").map(Number)
         : [0, 0];
@@ -83,12 +81,12 @@ export default function StartPage() {
             }
           }}
           className={`button w-fit p-4 ${
-            !checkIsTestStarted()
+            checkIsTestEnded()
               ? "hidden"
-              : checkIsTestEnded()
+              : !checkIsTestStarted()
               ? "hidden"
               : currentTime == null
-              ? ""
+              ? "hidden"
               : "block"
           }`}
         >

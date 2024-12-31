@@ -20,8 +20,8 @@ export default function CreateTest() {
   const [testDate, setTestDate] = useState(formattedDate);
   const [testStartTime, setStartTime] = useState("");
   const [questions, setQuestions] = useState([]);
-  // const [currentTime, setCurrentTime] = useState({ hours: "", minutes: "" });
   const [testDuration, setTestDuration] = useState("");
+  // const [currentTime, setCurrentTime] = useState({ hours: "", minutes: "" });
   const [error, setError] = useState("");
   const { adminId } = useAuth();
 
@@ -162,14 +162,6 @@ export default function CreateTest() {
                 value={testStartTime}
                 className="formInput"
                 onChange={(e) => {
-                  // const [h, m] = e.target.value.split(":");
-                  // if (currentTime.hours <= h && currentTime.minutes + 5 < m) {
-                  //   setStartTime(e.target.value);
-                  // } else {
-                  //   alert(
-                  //     "Please set the time 5 minutes ahead from current time."
-                  //   );
-                  // }
                   setStartTime(e.target.value);
                   setError("");
                 }}

@@ -104,7 +104,6 @@ router.post("/register-candidate", async (req, res) => {
       return res.status(404).json({ message: "Test not found." });
     }
 
-    // let candidate = await Candidate.findById(candidateId);
     let candidate = await Candidate.findOne({ email, name });
     if (!candidate) {
       candidate = new Candidate({
@@ -130,7 +129,6 @@ router.post("/register-candidate", async (req, res) => {
 
     res.status(200).json({
       message: "Successfully registered for the test.",
-      // testId
     });
   } catch (error) {
     console.error("Error registering for test:", error);
@@ -142,8 +140,6 @@ router.post("/candidate-login", async (req, res) => {
   const { email, name } = req.body;
   const testId = req.body.testId;
 
-  // console.log(email, name, testId);
-
   if (!email || !name) {
     return res.status(400).json({ message: "Email and name are required." });
   }
@@ -152,11 +148,10 @@ router.post("/candidate-login", async (req, res) => {
 
     if (!test) {
       return res
-        .status(200)
+        .status(404)
         .json({ status: "error", message: "Test not found." });
     }
 
-    // let candidate = await Candidate.findById(candidateId);
     let candidate = await Candidate.findOne({ email, name });
     if (!candidate) {
       return res

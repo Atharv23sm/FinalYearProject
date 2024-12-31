@@ -9,13 +9,15 @@ import { BASE_URL } from "../url";
 const TestRegistration = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [testId, setTestId] = useState(useParams()); //sample
+  const [testId, setTestId] = useState(useParams());
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     registerForTest(testId);
   };
 
@@ -28,34 +30,13 @@ const TestRegistration = () => {
       });
 
       if (response.status == 200) {
+        setIsLoading(false);
         navigate("/successful-registration");
       }
-
-      //   const { token, user } = response1.data;
-      //   console.log(token);
-      //   if (token) {
-      //     localStorage.setItem("token", token);
-      //   }
-      //   // console.log(testId);
-      //   const response2 = await axiosInstance.post("/register-test", {
-      //     name,
-      //     email,
-      //     testId,
-      //   });
-      //   const { testId } = response2.data;
-
-      //   if (testId) {
-      //     navigate("/test", { state: testId }); // Redirect to the test page
-      //   } else {
-      //     console.error("No redirect URL provided.");
-      //   }
     } catch (e) {
+      setIsLoading(false);
       console.error("Error registering for test :", e);
       setError(e.response.data.message);
-
-      if (e.response.status == 400) {
-        setError("Candidate is already registered for this test.");
-      }
     }
   };
 
@@ -116,7 +97,7 @@ const TestRegistration = () => {
 
               {error && <div className="error">{error}</div>}
 
-              <SubmitButton value="Register" />
+              <SubmitButton value={isLoading ? "Registering..." : "Register"} />
             </form>
           </div>
         </div>

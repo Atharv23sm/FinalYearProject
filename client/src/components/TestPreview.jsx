@@ -2,12 +2,13 @@ import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { LuImagePlus, LuTrash2 } from "react-icons/lu";
 
-export default function TestPreview({value}) {
+export default function TestPreview({ value }) {
   const questions = value.questions || value;
   const setViewQuestions = value.setViewQuestions;
   const [updatedQuestions, setUpdatedQuestions] = useState(questions);
 
   const handleButtonClick = (questionId) => {
+    console.log(questionId)
     const input = document.createElement("input");
     input.type = "file";
     input.accept = "image/*";
@@ -97,8 +98,6 @@ export default function TestPreview({value}) {
     }
   };
 
-  console.log(updatedQuestions)
-
   return (
     <div className="w-full p-2 md:p-4 bg-[#eee] rounded-md space-y-4">
       {updatedQuestions.map((item, index) => (
@@ -121,33 +120,34 @@ export default function TestPreview({value}) {
             </div>
           </div>
           <div>{"Correct Answer : " + item.correctAnswer}</div>
-          <div>
-            {item.image ? (
-              <div className="space-y-4">
-                <img
-                  src={item.image}
-                  alt={`Question ${item.index}`}
-                  className="max-w-full h-auto rounded-md bg-[#ddf]"
-                />
+          {setViewQuestions && (
+            <div>
+              {item.image ? (
+                <div className="space-y-4">
+                  <img
+                    src={item.image}
+                    alt={`Question ${item.index}`}
+                    className="max-w-full h-auto rounded-md bg-[#ddf]"
+                  />
 
-                <LuTrash2
-                  onClick={() => handleDelete(item._id)}
-                  size={32}
-                  color="white"
-                  className="p-1 bg-[#f00] rounded-md cursor-pointer"
-                />
-              </div>
-
-            ) : (
-              <div className="flex items-center gap-1">
-                <LuImagePlus
-                  size={32}
-                  onClick={() => handleButtonClick(item._id)}
-                  className="button p-1"
-                />
-              </div>
-            )}
-          </div>
+                  <LuTrash2
+                    onClick={() => handleDelete(item._id)}
+                    size={32}
+                    color="white"
+                    className="p-1 bg-[#f00] rounded-md cursor-pointer"
+                  />
+                </div>
+              ) : (
+                <div className="flex items-center gap-1">
+                  <LuImagePlus
+                    size={32}
+                    onClick={() => handleButtonClick(item._id)}
+                    className="button p-1"
+                  />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       ))}
        

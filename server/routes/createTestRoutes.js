@@ -11,27 +11,33 @@ const Question = require("../models/question");
 const Test = require("../models/test");
 
 router.get("/download-template", (req, res) => {
-  const headers = ["Index", "Question", "A", "B", "C", "D", "Correct Answer"];
+  try {
+    const headers = ["Index", "Question", "A", "B", "C", "D", "Correct Answer"];
 
-  const workbook = XLSX.utils.book_new();
-  const worksheetData = [headers];
-  const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+    const worksheetData = [headers];
+    const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
 
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Template");
-  const filePath = path.join(__dirname, "question_template.xlsx");
-  XLSX.writeFile(workbook, filePath);
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Template");
+    const filePath = path.join(__dirname, "question_template.xlsx");
+    XLSX.writeFile(workbook, filePath);
 
-  res.setHeader(
-    "Content-Disposition",
-    "attachment;filename=question_template.xlsx"
-  );
-  res.setHeader(
-    "Content-Type",
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-  );
-  res.sendFile(filePath, () => {
-    fs.unlinkSync(filePath);
-  });
+    res.setHeader(
+      "Content-Disposition",
+      "attachment;filename=question_template.xlsx"
+    );
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    res.sendFile(filePath, () => {
+      fs.unlinkSync(filePath);
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ success: false, message: "Error downloading template." });
+  }
 });
 
 router.post(
@@ -179,7 +185,7 @@ router.post(
           .json({ success: false, message: "No file uploaded." });
       }
 
-      const result = await cloudinary.uploader.upload_stream(
+      const result = cloudinary.uploader.upload_stream(
         {
           folder: "question_images",
           public_id: questionId,

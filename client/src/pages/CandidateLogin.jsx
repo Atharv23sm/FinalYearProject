@@ -1,15 +1,16 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../url";
 import Footer from "../partials/Footer";
 import SubmitButton from "../components/SubmitButton";
-import { BASE_URL } from "../url";
 
 const CandidateLogin = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [testId, setTestId] = useState(useParams().testId);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -19,22 +20,20 @@ const CandidateLogin = () => {
 
   const LoginForTest = async (testId) => {
     try {
-      // console.log(testId);
+      setIsLoading(true);
       const response = await axios.post(`${BASE_URL}/candidate-login`, {
         name,
         email,
         testId,
       });
-      if (response.data.status === "error") {
-        setError(response.data.message);
-      } else {
-        // console.log(response.data.message);
-        localStorage.setItem("candidate_token", response.data.token);
-        navigate(`/start-page/${testId}`);
-      }
+
+      localStorage.setItem("candidate_token", response.data.token);
+      navigate(`/start-page/${testId}`);
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
       console.error("Error Logging for test :", err);
-      setError(err.response.data.message)
+      setError(err.response.data.message);
     }
   };
 
@@ -95,7 +94,7 @@ const CandidateLogin = () => {
 
               {error && <div className="error">{error}</div>}
 
-              <SubmitButton value="Login" />
+              <SubmitButton value={isLoading ? "Logging in..." : "Login"} />
             </form>
           </div>
         </div>
