@@ -43,5 +43,5 @@
 }
 
 .td {
-  @apply border border-[#aac] p-2 text-center bg-white;
+  @apply border border-[#aac] p-1 md:p-2 text-center bg-white;
 }

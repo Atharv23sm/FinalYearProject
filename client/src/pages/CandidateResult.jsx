@@ -56,10 +56,10 @@ const CandidateResult = () => {
   };
 
   return (
-    <div className="w-full min-h-screen p-2 md:p-4 overflow-x-scroll">
+    <div className="w-full min-h-screen p-2 md:p-4">
       <div className="w-full p-2 md:p-4 bg-[#eef] rounded-md flex flex-col gap-4 items-center">
         <div className="w-full border-2 border-[#50f] rounded-md flex justify-between items-center overflow-hidden">
-          <div className="text-2xl h-full m-2 md:m-4">Test Results</div>
+          <div className="text-base md:text-2xl h-full m-2 md:m-4">Test Results</div>
           <select
             className="p-2 md:p-5 h-full bg-white"
             value={filter}
@@ -70,12 +70,12 @@ const CandidateResult = () => {
           </select>
         </div>
         {error && <div className="error md:text-md">{error}</div>}
-        <table className="table-auto rounded-md w-full">
+        <table className="table-auto rounded-md w-full overflow-x-scroll text-xs md:text-base">
           <thead>
             <tr className="bg-[#50f] text-white">
               {["Candidate Name", "Email", "Score", "Cheating Detected"].map(
                 (item, index) => (
-                  <th key={index} className="p-2 border border-[#aac]">
+                  <th key={index} className="p-1 md:p-2 border border-[#aac]">
                     {item}
                   </th>
                 )
