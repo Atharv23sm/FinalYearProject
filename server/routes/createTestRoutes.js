@@ -30,10 +30,21 @@ router.get("/download-template", (req, res) => {
       "Content-Type",
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     );
-    res.sendFile(filePath, () => {
-      fs.unlinkSync(filePath);
+    res.sendFile(filePath,  (err) => {
+        if(err){
+            console.log("Error sending file: ", err);
+            res.status(500).send("Failed to send file");
+        }else{
+            fs.unlink(filePath,(unlinkErr)=>{
+                if(unlinkErr){
+                    console.log("Error deleting file: ", err);
+                }
+            })
+        }
+        // fs.unlinkSync(filePath);
     });
   } catch (err) {
+    console.log(err);
     res
       .status(500)
       .json({ success: false, message: "Error downloading template." });
