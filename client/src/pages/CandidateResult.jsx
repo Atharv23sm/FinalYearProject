@@ -56,7 +56,7 @@ const CandidateResult = () => {
   };
 
   return (
-    <div className="w-full min-h-screen p-2 md:p-4">
+    <div className="w-full min-h-screen p-2 md:p-4 overflow-x-scroll">
       <div className="w-full p-2 md:p-4 bg-[#eef] rounded-md flex flex-col gap-4 items-center">
         <div className="w-full border-2 border-[#50f] rounded-md flex justify-between items-center overflow-hidden">
           <div className="text-2xl h-full m-2 md:m-4">Test Results</div>
