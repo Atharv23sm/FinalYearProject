@@ -9,6 +9,7 @@ const cloudinary = require("../utils/cloudinary");
 const authenticate = require("../middleware/authenticate");
 const Question = require("../models/question");
 const Test = require("../models/test");
+const os = require("os");
 
 router.get("/download-template", (req, res) => {
   try {
@@ -19,7 +20,8 @@ router.get("/download-template", (req, res) => {
     const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
 
     XLSX.utils.book_append_sheet(workbook, worksheet, "Template");
-    const filePath = path.join(__dirname, "question_template.xlsx");
+    // const filePath = path.join(__dirname, "question_template.xlsx");
+     const filePath = path.resolve(os.tmpdir(), "question_template.xlsx");
     XLSX.writeFile(workbook, filePath);
 
     res.setHeader(
