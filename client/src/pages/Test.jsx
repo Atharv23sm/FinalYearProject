@@ -232,7 +232,7 @@ function Test() {
         setExactDuration();
       }
     } else {
-      handleSubmit();
+      navigate('/end-page')
     }
   }, [currentTime, testDetails]);
 

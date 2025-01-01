@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosCandidateInstance = axios.create({
-  baseURL: "https://final-year-project-server-ashen.vercel.app/",
+  baseURL: "https://raa-server.vercel.app/",
   // baseURL: "http://localhost:3000",
 });
 
