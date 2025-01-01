@@ -21,7 +21,7 @@ export default function CreateTest() {
   const [testStartTime, setStartTime] = useState("");
   const [questions, setQuestions] = useState([]);
   const [testDuration, setTestDuration] = useState("");
-  // const [currentTime, setCurrentTime] = useState({ hours: "", minutes: "" });
+  const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState("");
   const { adminId } = useAuth();
 
@@ -56,6 +56,7 @@ export default function CreateTest() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsCreating(true);
     formData.append("file", testFile);
     formData.append("name", testName);
     formData.append("duration", testDuration);
@@ -70,10 +71,12 @@ export default function CreateTest() {
       });
 
       if (response.status == 200) {
+        setIsCreating(false);
         alert("The test has been created successfully.");
         navigate("/home");
       }
     } catch (err) {
+      setIsCreating(false);
       setError(err.response.data.message);
     }
   };
@@ -217,7 +220,7 @@ export default function CreateTest() {
                   {isPreviewClicked ? "Hide preview" : "Preview Test"}
                 </div>
               )}
-              <SubmitButton value="Create" />
+              <SubmitButton value={isCreating ? "Creating..." : "Create"} />
             </div>
           </form>
         </div>

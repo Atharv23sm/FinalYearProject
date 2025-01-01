@@ -204,35 +204,39 @@ function Test() {
   }, [testId, BASE_URL]);
 
   useEffect(() => {
-    const mongoDate = new Date(testDetails.date ? testDetails.date : null);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    mongoDate.setHours(0, 0, 0, 0);
+    if (testDetails.date) {
+      const mongoDate = new Date(testDetails.date);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      mongoDate.setHours(0, 0, 0, 0);
+      // console.log(mongoDate.getTime(), today.getTime());
+      // console.log(mongoDate.getTime() >= today.getTime());
+      if (mongoDate.getTime() >= today.getTime()) {
+        if (currentTime && testDetails) {
+          const setExactDuration = () => {
+            const [h1, m1] = currentTime.split(":").map(Number);
+            const t1 = h1 * 60 + m1;
 
-    if (mongoDate.getTime() >= today.getTime()) {
-      if (currentTime && testDetails) {
-        const setExactDuration = () => {
-          const [h1, m1] = currentTime.split(":").map(Number);
-          const t1 = h1 * 60 + m1;
+            const [h2, m2] = testDetails.startTime
+              ? testDetails.startTime.split(":").map(Number)
+              : [0, 0];
+            const t2 = h2 * 60 + m2;
 
-          const [h2, m2] = testDetails.startTime
-            ? testDetails.startTime.split(":").map(Number)
-            : [0, 0];
-          const t2 = h2 * 60 + m2;
+            console.log(t1, t2 + testDetails?.duration);
 
-          console.log(t1, t2 + testDetails?.duration);
-
-          if (t1 - (t2 + testDetails?.duration) >= 0) {
-            handleSubmit();
-          } else {
-            const calculatedDuration = (testDetails?.duration - (t1 - t2)) * 60;
-            setDuration(calculatedDuration);
-          }
-        };
-        setExactDuration();
+            if (t1 - (t2 + testDetails?.duration) >= 0) {
+              handleSubmit();
+            } else {
+              const calculatedDuration =
+                (testDetails?.duration - (t1 - t2)) * 60;
+              setDuration(calculatedDuration);
+            }
+          };
+          setExactDuration();
+        }
+      } else {
+        navigate("/end-page");
       }
-    } else {
-      navigate('/end-page')
     }
   }, [currentTime, testDetails]);
 
