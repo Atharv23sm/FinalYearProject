@@ -99,7 +99,7 @@ function Test() {
   const handleSubmit = async () => {
     // console.log(selectedOption);
     try {
-      setIsSubmitting(true)
+      setIsSubmitting(true);
       const response = await axiosCandidateInstance.post(`/submit-test`, {
         testId: testId,
         selectedOption: selectedOption,
@@ -115,12 +115,12 @@ function Test() {
         "timeLeft",
       ];
       storedKeys.map((key) => localStorage.removeItem(key));
-      setIsSubmitting(false)
+      setIsSubmitting(false);
       navigate("/end-page");
     } catch (err) {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
       console.error("Error submitting test:", err);
-      setError(err.response.date.message)
+      setError(err.response.date.message);
     }
   };
 
@@ -194,33 +194,45 @@ function Test() {
       const currentIST = new Date().toLocaleString("en-IN", {
         timeZone: "Asia/Kolkata",
         hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
       });
-      setCurrentTime(currentIST.slice(12, 17));
+      setCurrentTime(currentIST);
     }, 1000);
 
     return () => clearInterval(intervalId);
   }, [testId, BASE_URL]);
 
   useEffect(() => {
-    if (currentTime && testDetails) {
-      const setExactDuration = () => {
-        const [h1, m1] = currentTime.split(":").map(Number);
-        const t1 = h1 * 60 + m1;
+    const mongoDate = new Date(testDetails.date ? testDetails.date : null);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    mongoDate.setHours(0, 0, 0, 0);
 
-        const [h2, m2] = testDetails.startTime
-          ? testDetails.startTime.split(":").map(Number)
-          : [0, 0];
-        const t2 = h2 * 60 + m2;
+    if (mongoDate.getTime() >= today.getTime()) {
+      if (currentTime && testDetails) {
+        const setExactDuration = () => {
+          const [h1, m1] = currentTime.split(":").map(Number);
+          const t1 = h1 * 60 + m1;
 
-        if (t1 - (t2 + testDetails?.duration) == 0) {
-          handleSubmit();
-        } else {
-          const calculatedDuration = (testDetails?.duration - (t1 - t2)) * 60;
-          setDuration(calculatedDuration);
-        }
-      };
+          const [h2, m2] = testDetails.startTime
+            ? testDetails.startTime.split(":").map(Number)
+            : [0, 0];
+          const t2 = h2 * 60 + m2;
 
-      setExactDuration();
+          console.log(t1, t2 + testDetails?.duration);
+
+          if (t1 - (t2 + testDetails?.duration) >= 0) {
+            handleSubmit();
+          } else {
+            const calculatedDuration = (testDetails?.duration - (t1 - t2)) * 60;
+            setDuration(calculatedDuration);
+          }
+        };
+        setExactDuration();
+      }
+    } else {
+      handleSubmit();
     }
   }, [currentTime, testDetails]);
 
@@ -370,7 +382,7 @@ function Test() {
                 }}
                 className="button p-4"
               >
-                Submit
+                {isSubmitting ? "Submitting..." : "Submit"}
               </div>
             </div>
           </div>

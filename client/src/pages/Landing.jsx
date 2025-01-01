@@ -2,27 +2,11 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../partials/Footer";
 import Logo from "../components/Logo";
 import Image1 from "../public/landimg.jpg";
-import { useEffect, useState } from "react";
 
 const token = localStorage.getItem("token");
 
 function Landing() {
   const navigate = useNavigate();
-
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
 
   return (
     <>
@@ -44,14 +28,12 @@ function Landing() {
         </div>
         <div className="w-full flex justify-center px-6 py-16 lg:py-24">
           <div className="animate-[landingTrans1_3s_ease] leading-none text-[14vw] lg:text-[6vw] font-extrabold">
-            Online Aptitude Assessment
+            Rational Aptitude Assessment
           </div>
         </div>
         <div
           className="relative overflow-hidden w-fit bg-gradient-to-tl from-transparent to-[#77f5] backdrop-blur-sm rounded-md p-4 min-h-fit mx-4 mb-24
-        flex place-self-center flex-col md:flex-row justify-between items-center gap-[2vw] md:hover:cursor-none animate-[opacity1_3000ms_ease]"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
+        flex place-self-center flex-col md:flex-row justify-between items-center gap-[2vw] md:hover:cursor-none animate-[opacity1_3000ms_ease] "
         >
           <div className="landingCard text-[2.5rem] animate-[landingTrans2_1200ms_ease]">
             Boost <br />
@@ -63,15 +45,6 @@ function Landing() {
           <div className="landingCard text-[2.2rem] animate-[landingTrans2_2000ms_ease]">
             Objective Candidate Insights
           </div>
-          {isHovering && (
-            <div
-              className="absolute w-52 h-52 backdrop-brightness-150 rounded-full pointer-events-none transform -translate-y-[68vh] -translate-x-[31vw]"
-              style={{
-                left: `${cursorPos.x}px`,
-                top: `${cursorPos.y}px`,
-              }}
-            />
-          )}
         </div>
         <div
           className="min-w-fit bg-[#eef] rounded-md p-2
@@ -85,9 +58,8 @@ function Landing() {
           />
           <div className="text-[4vw] sm:text-[3vw] md:text-[2.5vw] lg:text-[2vw]">
             "Our platform provides easy-to-use aptitude assessments for a wide
-            range of needs. Whether for hiring, student exams or skill
-            evaluations, it helps you to make informed decisions with accurate
-            results."
+            range of needs. Whether for hiring or skill evaluations, it helps
+            you to make informed decisions with accurate results."
           </div>
         </div>
       </div>

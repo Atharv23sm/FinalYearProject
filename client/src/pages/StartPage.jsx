@@ -27,50 +27,69 @@ export default function StartPage() {
       const currentIST = new Date().toLocaleString("en-IN", {
         timeZone: "Asia/Kolkata",
         hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
       });
-      setCurrentTime(currentIST.slice(12, 17));
+      setCurrentTime(currentIST);
     }, 1000);
   }, []);
 
   const checkIsTestStarted = () => {
-    if (currentTime) {
-      const [h1, m1] = currentTime.split(":").map(Number);
-      const t1 = h1 * 60 + m1;
+    const mongoDate = new Date(testDetails.date ? testDetails.date : null);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    mongoDate.setHours(0, 0, 0, 0);
 
-      const [h2, m2] = testDetails.startTime
-        ? testDetails.startTime.split(":").map(Number)
-        : [0, 0];
-      const t2 = h2 * 60 + m2;
-      // console.log(t1,t2)
-      return t1 >= t2;
+    if (mongoDate.getTime() >= today.getTime()) {
+      if (currentTime) {
+        const [h1, m1] = currentTime.split(":").map(Number);
+        const t1 = h1 * 60 + m1;
+
+        const [h2, m2] = testDetails.startTime
+          ? testDetails.startTime.split(":").map(Number)
+          : [0, 0];
+        const t2 = h2 * 60 + m2;
+
+        return t1 >= t2;
+      }
+    } else {
+      return false;
     }
   };
 
   const checkIsTestEnded = () => {
-    if (currentTime) {
-      const [h1, m1] = currentTime.split(":").map(Number);
-      const t1 = h1 * 60 + m1;
+    const mongoDate = new Date(testDetails.date ? testDetails.date : null);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    mongoDate.setHours(0, 0, 0, 0);
 
-      const [h2, m2] = testDetails.startTime
-        ? testDetails.startTime.split(":").map(Number)
-        : [0, 0];
-      const t2 = h2 * 60 + m2 + testDetails.duration;
-      // console.log(t1, t2);
-      return t1 >= t2;
+    if (mongoDate.getTime() >= today.getTime()) {
+      if (currentTime) {
+        const [h1, m1] = currentTime.split(":").map(Number);
+        const t1 = h1 * 60 + m1;
+
+        const [h2, m2] = testDetails.startTime
+          ? testDetails.startTime.split(":").map(Number)
+          : [0, 0];
+        const t2 = h2 * 60 + m2 + testDetails.duration;
+        return t1 >= t2;
+      }
+    } else {
+      return true;
     }
   };
 
   return (
     <div className="w-full px-4 min-h-screen flex justify-center items-center">
       <div className="w-full h-fit flex flex-col items-center gap-4 md:w-1/2 p-2 md:p-4 bg-[#ccf] rounded-md">
-        <div className="w-full p-2 md:p-4 bg-white rounded-md flex justify-center text-lg">
+        <div className="w-full p-2 md:p-4 bg-white rounded-md flex justify-center text-lg text-center">
           {currentTime == null
             ? "..."
-            : !checkIsTestStarted()
-            ? "Get ready! Your test is about to start soon."
             : checkIsTestEnded()
             ? "The test has been ended."
-            : "The test is going on."}
+            : checkIsTestStarted()
+            ? "The test is going on."
+            : "Get ready! Your test is about to start soon."}
         </div>
         <div
           onClick={() => {

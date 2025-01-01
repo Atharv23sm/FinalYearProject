@@ -46,6 +46,18 @@ export default {
             backgroundColor: "#88f",
           },
         },
+
+        // cardTrans: {
+        //   "0%": {
+        //     backgroundColor: "#88f",
+        //   },
+        //   "50%": {
+        //     backgroundColor: "#bbf",
+        //   },
+        //   "100%": {
+        //     backgroundColor: "#88f",
+        //   },
+        // },
       },
     },
   },
