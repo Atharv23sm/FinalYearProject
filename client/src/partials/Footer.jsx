@@ -22,7 +22,7 @@ function Footer() {
         Please share any suggestions or issues to guide us before the official
         release.
       </div>
-      <div className="text-xs">{"Team RAA © " + new Date().getFullYear()}</div>
+      <div className="text-xs">{"Team © " + new Date().getFullYear()}</div>
     </div>
   );
 }

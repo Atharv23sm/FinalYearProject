@@ -28,7 +28,7 @@ function Landing() {
         </div>
         <div className="w-full flex justify-center px-6 py-16 lg:py-24">
           <div className="animate-[landingTrans1_3s_ease] leading-none text-[14vw] lg:text-[6vw] font-extrabold">
-            Rational Aptitude Assessment
+            Aptitude Assessment Platform
           </div>
         </div>
         <div
