@@ -3,10 +3,6 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      backgroundImage: {
-        'grid': "url('./src/public/grid.jpg')"
-      },
-
       keyframes: {
         loading: {
           "0%,100%": {

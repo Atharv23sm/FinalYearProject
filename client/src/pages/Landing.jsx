@@ -26,7 +26,7 @@ function Landing() {
             Get Started
           </div>
         </div>
-        <div className="relative overflow-hidden h-fit px-4 py-4 sm:py-16 flex flex-col justify-center items-center gap-8 sm:gap-16 m-4 md:m-8 lg:m-12 bg-grid bg-cover bg-top md:bg-center rounded-lg shadow-lg">
+        <div className="relative overflow-hidden h-fit px-4 py-4 sm:py-16 flex flex-col justify-center items-center gap-8 sm:gap-16 m-4 md:m-8 lg:m-12 bg-cover bg-top md:bg-center rounded-lg shadow-lg" style={{ backgroundImage: `url('/src/public/grid.jpg')` }}>
           <div className="animate-[landingTrans1_3s_ease] leading-none text-[9vw] sm:text-[5.6vw] font-extrabold">
             Aptitude Assessment Platform
           </div>
