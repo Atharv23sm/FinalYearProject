@@ -98,6 +98,15 @@ function TestDetails() {
             <div>Date : {testDetails.date?.slice(0, 10)}</div>
             <div>Start Time : {testDetails.startTime}</div>
             <div>Duration : {testDetails.duration}</div>
+            <div
+              className="w-fit button px-4 py-2 mb-12"
+              onClick={() => {
+                setViewQuestions(!viewQuestions);
+                window.scrollBy(0, 200);
+              }}
+            >
+              {viewQuestions ? "Hide Questions" : "View Questions"}
+            </div>
             <TestLink
               link={`${CLIENT_URL}/test-register/${testId}`}
               text="Candidate Registration Link"
@@ -111,7 +120,7 @@ function TestDetails() {
               onClick={() => {
                 !isMailsSending && sendMail();
               }}
-              className="button w-fit p-4"
+              className="button w-fit p-4 mb-12"
             >
               {!isMailsSending
                 ? "Send candidate login link via email"
@@ -120,23 +129,15 @@ function TestDetails() {
 
             <div>Total Registered Candidates : {registeredCount}</div>
             <div>Total Candidates Attempted : {submittedCount}</div>
-            <div
-              onClick={() => {
-                navigate(`/test-results/${testId}`);
-              }}
-              className="button w-fit p-4"
-            >
-              Results
-            </div>
+
             <div className="w-full flex justify-between items-end">
               <div
-                className="w-fit button px-4 py-2"
                 onClick={() => {
-                  setViewQuestions(!viewQuestions);
-                  window.scrollBy(0, 200);
+                  navigate(`/test-results/${testId}`);
                 }}
+                className="button w-fit p-4"
               >
-                {viewQuestions ? "Hide Questions" : "View Questions"}
+                Results
               </div>
               <LuTrash2
                 onClick={() => {
@@ -150,7 +151,9 @@ function TestDetails() {
             </div>
           </div>
         </div>
-        {viewQuestions && <TestPreview value={{questions, setViewQuestions}} />}
+        {viewQuestions && (
+          <TestPreview value={{ questions, setViewQuestions }} />
+        )}
       </div>
       <Footer />
     </>

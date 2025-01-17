@@ -39,7 +39,7 @@
 }
 
 .landingCard {
-  @apply w-56 h-56 rounded-md bg-[#88f] text-[#31b] leading-none font-extrabold p-2 hover:bg-black hover:text-white duration-700;
+  @apply w-[25vw] md:w-[23vw] lg:w-[16vw] h-[25vw] md:h-[23vw] lg:h-[16vw] rounded-md bg-[#88f] text-[#117] leading-none font-extrabold p-1 sm:p-2 hover:bg-black hover:text-white duration-700;
 }
 
 .td {

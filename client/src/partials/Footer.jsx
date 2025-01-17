@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <div className="w-full bg-gradient-to-r from-[#50f] to-[#20a] text-white p-4 bottom-0 left-0 flex flex-col gap-4">
+    <div className="w-full bg-[#88f] p-4 bottom-0 left-0 flex flex-col gap-2">
       <div>Join the conversation</div>
-      <div className="flex gap-10">
+      <div className="flex gap-6">
         <Link to={"https://github.com/Atharv23sm/FinalYearProject"}>
           <FaGithub size={"28"} />
         </Link>
@@ -13,15 +13,7 @@ function Footer() {
           <FaInstagram size={"28"} />
         </Link>
       </div>
-      <div className="text-xs">
-        Welcome to the Beta Version of Our Web App!
-        <br />
-        We're actively working on improvements, and your feedback is essential
-        to help us enhance the experience.
-        <br />
-        Please share any suggestions or issues to guide us before the official
-        release.
-      </div>
+      <div className="text-xs">BETA Version</div>
       <div className="text-xs">{"Team © " + new Date().getFullYear()}</div>
     </div>
   );

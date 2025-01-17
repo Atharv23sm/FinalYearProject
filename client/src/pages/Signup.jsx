@@ -6,6 +6,7 @@ import Footer from "../partials/Footer";
 import SubmitButton from "../components/SubmitButton";
 import Loading from "../Loading";
 import axios from "axios";
+import Image1 from "../public/Q_gridd.jpg";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -44,8 +45,15 @@ function Signup() {
       {isSigningUp ? (
         <Loading />
       ) : (
-        <div className="w-full min-h-screen p-4 md:p-0 flex justify-center items-center">
-          <div className="w-full sm:w-1/2 md:w-[40%] lg:w-[30%] flex flex-col items-center gap-4 p-4 bg-[#eef] rounded-md">
+        <div className="w-full min-h-screen p-4 md:p-0 flex justify-center items-center bg-[#eef]">
+          <div className="hidden lg:block">
+            <img
+              src={Image1}
+              alt="IQ"
+              className="h-[480px] shadow-lg rounded-lg mx-8"
+            />
+          </div>
+          <div className="w-full sm:w-1/2 lg:mx-8 md:w-[40%] lg:w-[30%] flex flex-col items-center gap-4 p-4 bg-[#ddf] rounded-md">
             <div className="w-full flex justify-between bg-white p-2 md:p-4 rounded-md">
               <div className="text-2xl font-bold">Sign up</div>
               <Link to="/login" className="navigateSigning">

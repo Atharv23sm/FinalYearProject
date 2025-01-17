@@ -5,7 +5,7 @@ export default function Loading() {
         return (
           <div
             key={item}
-            className="w-4 h-4 rounded-sm bg-[#31b] animate-pulse"
+            className="w-4 h-4 rounded-sm bg-[#88f] animate-pulse"
           />
         );
       })}

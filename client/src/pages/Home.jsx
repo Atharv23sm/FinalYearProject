@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
-import { FaAngleRight } from "react-icons/fa";
+import { FaAngleRight, FaCalendar, FaClock, FaStopwatch } from "react-icons/fa";
 import { useAuth } from "../context/UserContext";
 
 import Header from "../partials/Header";
@@ -50,7 +50,7 @@ function Home() {
             </Link>
           </div>
           <div className="w-full flex flex-col items-center gap-4 md:gap-8 p-4 md:p-6">
-            <div className="w-full border border-[#50f] rounded-md flex justify-between items-center overflow-hidden">
+            <div className="w-full border-2 border-[#50f] rounded-md flex justify-between items-center overflow-hidden">
               <div className="place-content-center h-full text-[16px] md:text-2xl m-2 md:m-6">
                 Your Tests
               </div>
@@ -73,9 +73,20 @@ function Home() {
                     <FaAngleRight size={20} className="text-[#888]" />
                   </div>
                   <hr className="border-[#aac] rounded-lg my-4" />
-                  <div>{`${item.date.slice(0, 10)} | ${item.startTime} | ${
-                    item.duration
-                  } minutes`}</div>
+                  <div>
+                    <div className="flex gap-2 items-center">
+                      <FaCalendar size={12}/>
+                      {item.date.slice(0, 10)}
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <FaClock size={12}/>
+                      {item.startTime}
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <FaStopwatch size={14}/>
+                      {item.duration} minutes
+                    </div>
+                  </div>
                 </Link>
               ))
             ) : (

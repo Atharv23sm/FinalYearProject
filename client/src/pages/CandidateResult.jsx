@@ -61,7 +61,7 @@ const CandidateResult = () => {
     <>
       <Header />
       <div className="w-full min-h-screen p-2 md:p-4 my-16 md:my-12">
-        <div className="w-full p-2 md:p-4 bg-[#eef] rounded-md flex flex-col gap-4 items-center">
+        <div className="w-full p-2 md:p-4 bg-[#eef] rounded-md flex flex-col gap-4">
           <div className="w-full border-2 border-[#50f] rounded-md flex justify-between items-center overflow-hidden">
             <div className="text-base md:text-2xl h-full m-2 md:m-4">
               Test Results
@@ -79,7 +79,7 @@ const CandidateResult = () => {
           <table className="table-auto rounded-md w-full overflow-x-scroll text-xs md:text-base">
             <thead>
               <tr className="bg-[#50f] text-white">
-                {["Candidate Name", "Email", "Score", "Cheating Detected"].map(
+                {["No.","Candidate Name", "Email", "Score", "Cheating Detected"].map(
                   (item, index) => (
                     <th key={index} className="p-1 md:p-2 border border-[#aac]">
                       {item}
@@ -91,6 +91,7 @@ const CandidateResult = () => {
             <tbody>
               {sortedResults.map((result, index) => (
                 <tr key={index}>
+                  <td className="td">{index+1}</td>
                   <td className="td">{result.name}</td>
                   <td className="td">{result.email}</td>
                   <td className="td">

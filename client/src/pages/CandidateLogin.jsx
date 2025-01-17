@@ -4,6 +4,7 @@ import axios from "axios";
 import { BASE_URL } from "../url";
 import Footer from "../partials/Footer";
 import SubmitButton from "../components/SubmitButton";
+import Image1 from "../public/aptiboy.png";
 
 const CandidateLogin = () => {
   const [name, setName] = useState("");
@@ -39,8 +40,15 @@ const CandidateLogin = () => {
 
   return (
     <>
-      <div className="w-full min-h-screen p-2 md:p-0 flex flex-col items-center justify-center">
-        <div className="w-full sm:w-1/2 md:w-[40%] lg:w-[30%] bg-[#eef] rounded-md p-2 md:p-4">
+      <div className="w-full min-h-screen p-4 md:p-0 flex justify-center items-center bg-[#eef]">
+        <div className="hidden lg:block">
+          <img
+            src={Image1}
+            alt="IQ"
+            className="h-[480px] bg-white shadow-lg rounded-lg mx-8"
+          />
+        </div>
+        <div className="w-full sm:w-1/2 lg:mx-8 md:w-[40%] lg:w-[30%] flex flex-col items-center gap-4 p-4 bg-[#ddf] rounded-md">
           <div className="w-full bg-white rounded-md p-2 md:p-4">
             <div>
               <div className="mb-4 text-2xl font-bold text-center duration-300 ease-out rounded-md">
