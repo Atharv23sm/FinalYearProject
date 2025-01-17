@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosCandidateInstance from "../axiosCandidateInstance";
+import Instructions from "../components/Instructions";
 
 export default function StartPage() {
   const [currentTime, setCurrentTime] = useState(null);
@@ -80,16 +81,28 @@ export default function StartPage() {
   };
 
   return (
-    <div className="w-full px-4 min-h-screen flex justify-center items-center">
-      <div className="w-full h-fit flex flex-col items-center gap-4 md:w-1/2 p-2 md:p-4 bg-[#ccf] rounded-md">
-        <div className="w-full p-2 md:p-4 bg-white rounded-md flex justify-center text-lg text-center">
-          {currentTime == null
-            ? "..."
-            : checkIsTestEnded()
-            ? "The test has been ended."
-            : checkIsTestStarted()
-            ? "The test is going on."
-            : "Get ready! Your test is about to start soon."}
+    <div className="w-full p-4 md:p-6 lg:p-8 min-h-screen">
+      <div className="w-full h-fit flex flex-col items-center gap-4 p-2 md:p-4 bg-[#ccf] rounded-md">
+        <div className="w-full p-2 md:p-4 bg-white rounded-md">
+          {currentTime == null ? (
+            "..."
+          ) : checkIsTestEnded() ? (
+            "The test has been ended."
+          ) : checkIsTestStarted() ? (
+            <>
+              <div className="text-lg text-center font-bold">
+                The test is going on.
+              </div>
+              <Instructions />
+            </>
+          ) : (
+            <>
+              <div className="text-lg text-center">
+                Get ready! Your test is about to start soon.
+              </div>
+              <Instructions/>
+            </>
+          )}
         </div>
         <div
           onClick={() => {

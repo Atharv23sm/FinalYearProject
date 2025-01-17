@@ -39,17 +39,17 @@ function Home() {
 
   return adminId ? (
     <>
-      <div className="py-16 px-4 md:px-8">
+      <div className="py-16 px-2 md:px-4 lg:px-8">
         <Header />
         <div className="min-w-full min-h-screen flex flex-col md:flex-row bg-[#eef] rounded-md">
-          <div className="min-w-fit p-4 md:p-6 border-b-2 md:border-r-2 md:border-b-0 border-[#bbe]">
+          <div className="min-w-fit p-3 md:p-4 lg:p-6 border-b-2 md:border-r-2 md:border-b-0 border-[#bbe]">
             <Link to="/create-test">
               <div className="button w-fit h-fit p-6 text-[16px] md:text-2xl">
                 Create a Test
               </div>
             </Link>
           </div>
-          <div className="w-full flex flex-col items-center gap-4 md:gap-8 p-4 md:p-6">
+          <div className="w-full flex flex-col items-center gap-4 md:gap-8 p-3 md:p-4 lg:p-6">
             <div className="w-full border-2 border-[#50f] rounded-md flex justify-between items-center overflow-hidden">
               <div className="place-content-center h-full text-[16px] md:text-2xl m-2 md:m-6">
                 Your Tests
@@ -61,7 +61,7 @@ function Home() {
                 <Link
                   key={index}
                   to={`/test-details/${item._id}`}
-                  className="w-full group bg-white p-4 rounded-md shadow-md hover:shadow-xl duration-500 ease-out cursor-pointer"
+                  className="w-full group bg-white p-3 md:p-4 rounded-md shadow-md hover:shadow-xl duration-500 ease-out cursor-pointer"
                 >
                   <div className="flex justify-between items-center">
                     <div

@@ -99,7 +99,7 @@ export default function TestPreview({ value }) {
   };
 
   return (
-    <div className="w-full p-2 md:p-4 bg-[#eee] rounded-md space-y-4">
+    <div className="w-full p-2 md:p-4 bg-[#eef] rounded-md space-y-4">
       {updatedQuestions.map((item, index) => (
         <div
           key={index}

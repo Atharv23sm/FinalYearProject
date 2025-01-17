@@ -61,7 +61,7 @@ router.get("/get-test-details/:id", async (req, res) => {
 router.get("/get-all-tests/:id", async (req, res) => {
   const adminId = req.params.id;
   try {
-    const tests = await Test.find({ adminId: adminId }).sort({ date: 1 });
+    const tests = await Test.find({ adminId: adminId }).sort({ date: -1 });
     const totalTests = await Test.countDocuments({ adminId: adminId });
 
     if (!tests || tests.length === 0) {

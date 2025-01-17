@@ -10,7 +10,7 @@ function Landing() {
 
   return (
     <>
-      <div className="min-w-full min-h-screen bg-gradient-to-b from-[#88f4] to-[#fff]">
+      <div className="min-w-full min-h-screen bg-gradient-to-b from-[#88f4] to-[#fff] select-none">
         <div
           className="bg-white flex justify-between items-center top-0 left-0
         py-4 md:py-6 px-4 md:px-8"
@@ -33,14 +33,14 @@ function Landing() {
           <div
             className="w-fit min-h-fit flex place-self-center flex-row justify-between items-center gap-[2vw] lg:gap-12 sm:gap-4 md:gap-8 md:hover:cursor-none"
           >
-            <div className="landingCard text-[3.4vw] lg:text-[2.4vw] animate-[landingTrans2_1200ms_ease]">
+            <div className="landingCard text-[3.8vw] lg:text-[2.4vw] animate-[landingTrans2_1200ms_ease]">
               Boost <br />
               Hiring Accuracy
             </div>
-            <div className="landingCard text-[3.4vw] lg:text-[2.4vw] animate-[landingTrans2_1600ms_ease]">
+            <div className="landingCard text-[3.8vw] lg:text-[2.4vw] animate-[landingTrans2_1600ms_ease]">
               Automated Aptitude Assessment
             </div>
-            <div className="landingCard text-[3.4vw] lg:text-[2.4vw] animate-[landingTrans2_2000ms_ease]">
+            <div className="landingCard text-[3.8vw] lg:text-[2.4vw] animate-[landingTrans2_2000ms_ease]">
               Objective Candidate Insights
             </div>
           </div>

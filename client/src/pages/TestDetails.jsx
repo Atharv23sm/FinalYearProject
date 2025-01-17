@@ -99,10 +99,13 @@ function TestDetails() {
             <div>Start Time : {testDetails.startTime}</div>
             <div>Duration : {testDetails.duration}</div>
             <div
-              className="w-fit button px-4 py-2 mb-12"
+              className="w-fit button px-4 py-2 mb-6"
               onClick={() => {
+                window.scrollTo({
+                  top: document.documentElement.scrollHeight,
+                  behavior: "smooth",
+                });
                 setViewQuestions(!viewQuestions);
-                window.scrollBy(0, 200);
               }}
             >
               {viewQuestions ? "Hide Questions" : "View Questions"}
@@ -118,9 +121,13 @@ function TestDetails() {
 
             <div
               onClick={() => {
-                !isMailsSending && sendMail();
+                if (
+                  confirm("Are you sure? You're sending the link via email.")
+                ) {
+                  !isMailsSending && sendMail();
+                }
               }}
-              className="button w-fit p-4 mb-12"
+              className="button w-fit px-4 py-2 mb-6"
             >
               {!isMailsSending
                 ? "Send candidate login link via email"

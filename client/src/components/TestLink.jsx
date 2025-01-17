@@ -15,12 +15,12 @@ export default function TestLink({ link, text }) {
             setCopied(false);
           }, 3000);
         }}
-        className="w-full lg:w-max p-2 md:p-4 flex gap-2 items-center bg-[#50f] text-white cursor-pointer"
+        className="w-full lg:w-max px-4 py-2 flex gap-2 items-center bg-[#50f] text-white cursor-pointer"
       >
         {copied ? "Copied" : text}
         <FaCopy size={20} />
       </div>
-      <div className="place-content-center p-2 md:px-4 text-sm md:text-base overflow-hidden text-ellipsis ">
+      <div className="place-content-center px-4 py-2 text-sm md:text-base overflow-hidden text-ellipsis ">
         {link}
       </div>
     </div>

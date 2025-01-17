@@ -4,7 +4,7 @@ import Image1 from "/Q_logo.png";
 export default function Logo() {
   return (
     <Link
-      to="/home"
+      to="/"
       className="w-fit h-fit"
     >
       <img

@@ -96,7 +96,7 @@ export default function CreateTest() {
   return adminId ? (
     <>
       <Header />
-      <div className="min-w-full min-h-screen py-16 px-2 sm:px-4 md:px-6 flex flex-col justify-center">
+      <div className="min-w-full min-h-screen py-16 px-2 sm:px-4 md:px-6 flex flex-col justify-center gap-4">
         <div className="w-full p-2 md:p-4 bg-[#eef] flex flex-col md:flex-row md:justify-between gap-4 rounded-md">
           <div className="w-full md:p-4 text-sm md:text-base">
             Instructions :
@@ -121,6 +121,26 @@ export default function CreateTest() {
             6) After filling out the template, save the file in .xlsx format.
             <br />
             7) Select the filled file, and click Open to upload.
+            <br />
+            8) Before submitting, double-check that all questions, answer
+            options, and correct answers are filled in properly.
+            <br />
+            9) After ticking the box, click the "Create Test" button to finalize
+            the process.
+            <br />
+            10) On the home page, you will find the Newly Created Tests section.
+            Here, you will be able to;
+            <br />
+            Add images to questions: For each question, you have the option to
+            upload relevant images. Click on the "Add Image" icon next to the
+            question to insert an image.
+            <br />
+            Access test links: You can easily access related test links and an
+            option to send the link via email.
+            <br />
+            View test details, total applicants.
+            <br />
+            View candidate results.
           </div>
 
           <form
@@ -214,6 +234,10 @@ export default function CreateTest() {
                 <div
                   className="button px-2 md:px-4 py-2"
                   onClick={() => {
+                    window.scrollTo({
+                      top: document.documentElement.scrollHeight,
+                      behavior: "smooth",
+                    });
                     setIsPreviewClicked(!isPreviewClicked);
                   }}
                 >

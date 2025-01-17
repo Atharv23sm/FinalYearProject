@@ -7,7 +7,7 @@ export default function HomeLoader() {
         return (
           <div
             key={item}
-            className="w-full h-48 bg-white rounded-md animate-[loading_1s_infinite] flex flex-col gap-2 p-2 md:p-4"
+            className="w-full h-44 bg-white rounded-md animate-[loading_1s_infinite] flex flex-col gap-2 p-2 md:p-4"
           >
             <div className="w-full h-10 bg-[#ddf]" />
             <hr className="border-[#aac] rounded-lg my-4" />
