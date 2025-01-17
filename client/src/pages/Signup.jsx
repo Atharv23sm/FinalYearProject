@@ -6,7 +6,7 @@ import Footer from "../partials/Footer";
 import SubmitButton from "../components/SubmitButton";
 import Loading from "../Loading";
 import axios from "axios";
-import Image1 from "../public/Q_gridd.jpg";
+import Image1 from "/Q_gridd.jpg";
 
 function Signup() {
   const [name, setName] = useState("");

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Image1 from "../public/Q_logo.png";
+import Image1 from "/Q_logo.png";
 
 export default function Logo() {
   return (

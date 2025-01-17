@@ -7,7 +7,7 @@ import SubmitButton from "../components/SubmitButton";
 import Loading from "../Loading";
 import axios from "axios";
 import { useAuth } from "../context/UserContext";
-import Image1 from "../public/Q_gridd.jpg";
+import Image1 from "/Q_gridd.jpg";
 
 function Login() {
   const [email, setEmail] = useState("");

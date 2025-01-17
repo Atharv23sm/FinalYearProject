@@ -4,7 +4,7 @@ import axios from "axios";
 import { BASE_URL } from "../url";
 import Footer from "../partials/Footer";
 import SubmitButton from "../components/SubmitButton";
-import Image1 from "../public/aptiboy.png";
+import Image1 from "/aptiboy.png";
 
 const CandidateLogin = () => {
   const [name, setName] = useState("");

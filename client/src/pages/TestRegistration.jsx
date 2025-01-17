@@ -5,7 +5,7 @@ import axios from "axios";
 import Footer from "../partials/Footer";
 import SubmitButton from "../components/SubmitButton";
 import { BASE_URL } from "../url";
-import Image1 from "../public/aptiboy.png";
+import Image1 from "/aptiboy.png";
 
 const TestRegistration = () => {
   const [name, setName] = useState("");
