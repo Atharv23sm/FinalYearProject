@@ -47,6 +47,18 @@ export default {
           },
         },
 
+        projection: {
+          "0%": {
+            transform: "translateY(0px)",
+          },
+          "50%": {
+            transform: "translateY(-100px)",
+          },
+          "100%": {
+            transform: "translateY(0px)",
+          },
+        },
+
         // cardTrans: {
         //   "0%": {
         //     backgroundColor: "#88f",
