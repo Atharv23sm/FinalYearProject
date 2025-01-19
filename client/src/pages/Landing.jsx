@@ -51,8 +51,8 @@ function Landing() {
         mx-2 sm:mx-4 md:mx-8 lg:mx-12 min-h-fit shadow-lg
         flex flex-col lg:flex-row justify-between relative overflow-hidden"
         >
-          <div className="z-20 absolute -right-20 -bottom-32 w-60 h-60 bg-[#50f] blur-[60px] rounded-full animate-[projection_10s_infinite]" />
-          <div className="z-10 absolute right-12 -bottom-32 w-80 h-80 bg-gradient-to-br from-[#88f] to-[#77fa] blur-[100px] rounded-full animate-[projection_12s_infinite]" />
+          <div className="z-20 absolute -right-40 md:-right-20 -bottom-44 md:-bottom-32 w-60 h-60 bg-[#50f] blur-[60px] rounded-full animate-[projection_8s_infinite]" />
+          <div className="z-10 absolute -right-32 md:right-12 -bottom-52 md:-bottom-32 w-80 h-80 bg-gradient-to-br from-[#88f] to-[#77fa] blur-[100px] rounded-full animate-[projection_10s_infinite]" />
           <img
             src={Image1}
             alt="IQ"
@@ -67,8 +67,8 @@ function Landing() {
 
         
         <div className="bg-white shadow-lg relative overflow-hidden m-2 sm:m-4 md:m-8 lg:m-12 py-4 p-2 sm:p-4 md:p-8 rounded-md flex flex-col items-center gap-8">
-        <div className="z-10 absolute -left-32 sm:-left-10 -top-20 w-80 h-80 bg-[#50f] blur-[60px] rounded-full animate-[projection_10s_infinite]" />
-        <div className="z-20 absolute left-40 sm:-left-20 -top-12 w-1/3 h-80 bg-gradient-to-br from-[#88f] to-[#77fa] blur-[100px] rounded-full animate-[projection_12s_infinite]" />
+        <div className="z-20 absolute -left-32 sm:-left-10 -top-44 md:-top-20 w-80 h-80 bg-[#50f8] md:bg-[#50f] blur-[50px] rounded-full animate-[projection_10s_infinite]" />
+        <div className="z-10 absolute left-40 sm:-left-20 -top-32 md:-top-12 w-1/3 h-80 bg-gradient-to-br from-[#88f] to-[#77fa] blur-[100px] rounded-full animate-[projection_12s_infinite]" />
         <div className="z-50 text-[1.2rem] md:text-[2rem] font-bold ">
             100+ Companies trust us
           </div>
