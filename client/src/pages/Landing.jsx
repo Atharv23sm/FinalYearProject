@@ -51,8 +51,8 @@ function Landing() {
         mx-2 sm:mx-4 md:mx-8 lg:mx-12 min-h-fit shadow-lg
         flex flex-col lg:flex-row justify-between relative overflow-hidden"
         >
-          //<div className="z-20 absolute -right-40 md:-right-20 -bottom-44 md:-bottom-32 w-60 h-60 bg-[#40f6] blur-[60px] rounded-full animate-[projection_6s_infinite]" />
-          //<div className="z-10 absolute -right-32 md:right-12 -bottom-52 md:-bottom-32 w-80 h-80 bg-gradient-to-br from-[#88f8] to-[#77f6] blur-[100px] rounded-full animate-[projection_8s_infinite]" />
+          {/*<div className="z-20 absolute -right-40 md:-right-20 -bottom-44 md:-bottom-32 w-60 h-60 bg-[#40f6] blur-[60px] rounded-full animate-[projection_6s_infinite]" />
+          <div className="z-10 absolute -right-32 md:right-12 -bottom-52 md:-bottom-32 w-80 h-80 bg-gradient-to-br from-[#88f8] to-[#77f6] blur-[100px] rounded-full animate-[projection_8s_infinite]" />*/}
           <img
             src={Image1}
             alt="IQ"
